@@ -41,35 +41,33 @@ const Wrapper: React.FC<FormContainerProps> = ({
   }, [disabled, secondaryAction]);
   return (
     <>
-      <div>
-        <div className="pt-20">
-          {/* CONTENT */}
-          <div className="h-full opacity-100 ">
-            <div className="relative flex flex-col h-full max-w-5xl mx-auto translate lg:h-auto md:h-auto focus:outline-none">
-              {/* Header */}
-              <div className="relative flex items-center justify-center p-6 rounded-t border-b-1px">
-                <div className="text-lg font-semibold">{title}</div>
-              </div>
-              {/* body */}
-              <div className="relative flex-auto p-6">{body}</div>
-              {/* footer */}
-              <div className="flex flex-col gap-2 p-6">
-                <div className="flex flex-row items-center w-full gap-4">
-                  {secondaryAction && secondaryActionLabel && (
-                    <Button
-                      outline
-                      disabled={disabled}
-                      label={secondaryActionLabel}
-                      onClick={handleSecondaryAction}
-                    />
-                  )}
-
+      <div className="w-full max-h-screen px-10 overflow-y-scroll">
+        {/* CONTENT */}
+        <div className="h-full opacity-100 ">
+          <div className="relative flex flex-col h-full max-w-5xl mx-auto translate lg:h-auto md:h-auto focus:outline-none">
+            {/* Header */}
+            <div className="relative flex items-center justify-center rounded-t border-b-1px">
+              <div className="text-lg font-semibold">{title}</div>
+            </div>
+            {/* body */}
+            <div className="relative flex-auto p-6">{body}</div>
+            {/* footer */}
+            <div className="flex flex-col gap-2 p-6">
+              <div className="flex flex-row items-center w-full gap-4">
+                {secondaryAction && secondaryActionLabel && (
                   <Button
+                    outline
                     disabled={disabled}
-                    label={actionLabel}
-                    onClick={handleSubmit}
+                    label={secondaryActionLabel}
+                    onClick={handleSecondaryAction}
                   />
-                </div>
+                )}
+
+                <Button
+                  disabled={disabled}
+                  label={actionLabel}
+                  onClick={handleSubmit}
+                />
               </div>
             </div>
           </div>

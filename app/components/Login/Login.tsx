@@ -29,6 +29,8 @@ const LoginForm: React.FC = () => {
 
   const user: User = session?.user as User;
 
+  const loading = status === "loading";
+
   useEffect(() => {
     if (user) {
       router.replace("/dashboard");
@@ -57,7 +59,7 @@ const LoginForm: React.FC = () => {
 
       if (callback?.ok) {
         toast.success("Logged in");
-        router.replace("/dashboard");
+        router.replace("/");
       }
 
       if (callback?.error) {
@@ -67,37 +69,45 @@ const LoginForm: React.FC = () => {
   };
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
-      <Heading title="Welcome back" subtitle="Login to your account" />
-      <Input
-        id="email"
-        label="Email"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
+    <>
+      <div className="flex flex-col gap-4">
+        <Heading title="Welcome back" subtitle="Login to your account" />
+        <Input
+          id="email"
+          label="Email"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
 
-      <Input
-        id="password"
-        type="password"
-        label="Password"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-    </div>
+        <Input
+          id="password"
+          type="password"
+          label="Password"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    </>
   );
 
   return (
-    <FormContainer
-      disabled={isLoading}
-      title="Pratiksha Edu CMS"
-      actionLabel="Login"
-      onSubmit={handleSubmit(onSubmit)}
-      body={bodyContent}
-    />
+    <>
+      {!user ? (
+        <FormContainer
+          disabled={isLoading}
+          title="Pratiksha Edu CMS"
+          actionLabel="Login"
+          onSubmit={handleSubmit(onSubmit)}
+          body={bodyContent}
+        />
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

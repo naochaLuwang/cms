@@ -22,15 +22,25 @@ const NewSubMenu = ({ menus }: any) => {
     handleSubmit,
     control,
     formState: { errors },
+    setValue,
+    watch,
   } = useForm<FieldValues>({
     defaultValues: {
       title: "",
       slug: "",
       order: 0,
       menuId: "",
-      status: true,
+      status: "ACTIVE",
     },
   });
+
+  const title = watch("title");
+  const generateSlug = () => {
+    // Generate slug from username
+    const slug = title.toLowerCase().replace(/\s+/g, "_");
+    // Set the generated slug to the slug field in the form
+    setValue("slug", slug);
+  };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
@@ -60,25 +70,45 @@ const NewSubMenu = ({ menus }: any) => {
           register={register}
           errors={errors}
           required
+          isNumber={false}
         />
-        <SmallInput
-          id="slug"
-          label="Slug"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
-        />
-        <Select id="menuId" register={register} errors={errors} menus={menus} />
-        {/* <Select
+        <div className="flex items-end gap-4">
+          <SmallInput
+            id="slug"
+            label="Slug"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+            isNumber={false}
+          />
+
+          <button
+            className="w-48 h-10 py-2 text-blue-500 border border-blue-800 rounded-md"
+            onClick={generateSlug}
+          >
+            Generate slug
+          </button>
+        </div>
+        <div className="flex flex-col">
+          <h1 className="mb-2 text-neutral-600">Menu</h1>
+          <Select
+            id="menuId"
+            register={register}
+            errors={errors}
+            menus={menus}
+          />
+        </div>
+
+        <Select
           id="status"
           register={register}
           errors={errors}
           menus={[
-            { id: true, title: "ACTIVE" },
-            { id: false, title: "INACTIVE" },
+            { id: "ACTIVE", title: "ACTIVE" },
+            { id: "INACTIVE", title: "INACTIVE" },
           ]}
-        /> */}
+        />
 
         <SmallInput
           id="order"
@@ -87,6 +117,7 @@ const NewSubMenu = ({ menus }: any) => {
           register={register}
           errors={errors}
           required
+          isNumber
         />
       </div>
     </>

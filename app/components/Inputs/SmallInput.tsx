@@ -12,6 +12,7 @@ interface InputProps {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
   small?: boolean;
+  isNumber?: boolean | undefined;
 }
 
 const SmallInput: React.FC<InputProps> = ({
@@ -24,6 +25,7 @@ const SmallInput: React.FC<InputProps> = ({
   register,
   errors,
   small,
+  isNumber,
 }) => {
   return (
     <div className="relative flex flex-col w-full">
@@ -39,7 +41,7 @@ const SmallInput: React.FC<InputProps> = ({
       <input
         id={id}
         disabled={disabled}
-        {...register(id, { required })}
+        {...register(id, { required, valueAsNumber: isNumber })}
         placeholder=" "
         type={type}
         className={`peer  p-2  font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed ${

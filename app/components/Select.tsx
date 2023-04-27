@@ -21,7 +21,7 @@ const Select: React.FC<SelectProps> = ({
   menus,
 }) => {
   return (
-    <div className="w-full h-20">
+    <div className="w-full h-auto ">
       <select {...register(id, { required })}>
         <option value="">-- Select a menu --</option>
         {menus.map((menu: any) => (

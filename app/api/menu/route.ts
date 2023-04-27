@@ -27,3 +27,18 @@ export async function GET(request: Request) {
 
   return NextResponse.json(menus);
 }
+
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
+
+  if (!id) {
+    return NextResponse.json({ message: "ID cannot be empty" });
+  }
+
+  const deleteUser = await prisma.menu.delete({
+    where: {
+      id: id,
+    },
+  });
+}

@@ -5,16 +5,13 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import { useState } from "react";
-import FormContainer from "../../components/Form/FormContainer";
-import Heading from "../../components/Heading";
-import Input from "../../components/Inputs/Input";
-import SmallInput from "../../components/Inputs/SmallInput";
+import Heading from "../../../components/Heading";
+import SmallInput from "../../../components/Inputs/SmallInput";
 import { toast } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
-import slugify from "slugify";
+import MyEditor from "@/app/components/Editor";
 
 const NewMenu = () => {
-  const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -28,9 +25,17 @@ const NewMenu = () => {
       title: "",
       slug: "",
       order: 0,
-      status: true,
+      status: "ACTIVE",
+      content: "",
     },
   });
+
+  const handleEditorChange = (value: any) => {
+    setValue("content", value);
+    console.log(value);
+  };
+
+  const editorContent = watch("content");
 
   const title = watch("title");
   const generateSlug = () => {
@@ -42,29 +47,32 @@ const NewMenu = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    axios
-      .post("/api/menu", data)
-      .then(() => {
-        console.log("Sucessfully registered");
-      })
-      .catch((error) => {
-        toast.error("Error ");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    console.log(data);
+
+    // axios
+    //   .post("/api/menu", data)
+    //   .then(() => {
+    //     console.log("Sucessfully registered");
+    //   })
+    //   .catch((error) => {
+    //     toast.error("Error ");
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Menu" subtitle="Add a new menu" />
+      <Heading title="Menu" />
       <SmallInput
         id="title"
-        label="Title"
+        label="Menu Title"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
+        isNumber={false}
       />
       <div className="flex items-end gap-4">
         <SmallInput
@@ -74,6 +82,7 @@ const NewMenu = () => {
           register={register}
           errors={errors}
           required
+          isNumber={false}
         />
 
         <button
@@ -83,15 +92,23 @@ const NewMenu = () => {
           Generate slug
         </button>
       </div>
-
       <SmallInput
         id="order"
-        label="Order"
+        label="Display Order"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
+        isNumber={true}
       />
+      <div className="flex flex-col w-full h-96">
+        <h1>Page Content</h1>
+        <MyEditor
+          onChange={handleEditorChange}
+          content={editorContent}
+          className="h-96"
+        />
+      </div>
     </div>
   );
 

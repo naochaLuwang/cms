@@ -1,23 +1,31 @@
 import React from "react";
-import { getAllMenus } from "../actions/getAllMenus";
-import ClientOnly from "../components/ClientOnly";
-import PageHeader from "../components/PageHeader";
+import { getAllMenus } from "../../actions/getAllMenus.ts";
+import ClientOnly from "../../components/ClientOnly";
+import PageHeader from "../../components/PageHeader";
+import Table from "../../components/Table";
+
+import axios from "axios";
 
 const Menu = async () => {
   const menus = await getAllMenus();
   return (
     <div className="w-full h-auto">
-      {/* {menus.map((menu: any) => (
-        <div key={menu.id}>
-          {menu.title}
-          {menu.submenus.map((submenu: any) => (
-            <div key={submenu.id}>{submenu.title}</div>
-          ))}
-        </div>
-      ))} */}
-      <ClientOnly>
-        <PageHeader />
-      </ClientOnly>
+      <PageHeader
+        title="Menu"
+        action="Add a new Menu"
+        link="/dashboard/menu/add_new_menu"
+      />
+      <Table
+        data={menus}
+        headings={[
+          "Serial No",
+          "Title",
+          "Slug",
+          "Submenu",
+          "Created At",
+          "Actions",
+        ]}
+      />
     </div>
   );
 };

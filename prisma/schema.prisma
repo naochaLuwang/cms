@@ -44,23 +44,37 @@ model Menu {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   title    String    @unique
   slug     String
-  order    String
+  order    Int
   submenus Submenu[]
-  status   Boolean
+  status   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Submenu {
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
-  menuId String  @db.ObjectId
-  title  String  @unique
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  menuId String @db.ObjectId
+  title  String @unique
   slug   String
-  order  String
-  status Boolean
+  order  Int
+  status String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   menu      Menu     @relation(fields: [menuId], references: [id], onDelete: Cascade)
+}
+
+model Orgsetting {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  phone       String
+  email       String
+  add1        String
+  add2        String
+  mtitle      String
+  description String
+  facebook    String
+  linkedin    String
+  instagram   String
 }

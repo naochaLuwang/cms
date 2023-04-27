@@ -1,15 +1,11 @@
-import ClientOnly from "./components/ClientOnly";
-import LoginForm from "./components/Login/Login";
-
-import ToasterProvider from "./providers/ToasterProvider";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <main className="">
-      <ClientOnly>
-        <ToasterProvider />
-        <LoginForm />
-      </ClientOnly>
-    </main>
-  );
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/dashboard");
+  }, [router]);
+  return <main className=""></main>;
 }
