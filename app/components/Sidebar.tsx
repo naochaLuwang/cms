@@ -4,7 +4,6 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import activeSidebar from "../hooks/activeSidebar";
 
 interface NavItem {
   label?: string;
@@ -31,9 +30,9 @@ const Sidebar: React.FC<SidebarProps> = ({ orgName }) => {
   );
 };
 
-const SideBarNavItem = ({ label, children, href }: SidebarProps) => {
+const SideBarNavItem = ({ label, children, href }: NavItem) => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
-  const { title, setTitle } = activeSidebar();
+
   const router = useRouter();
 
   console.log(isSubMenuOpen);
@@ -46,8 +45,6 @@ const SideBarNavItem = ({ label, children, href }: SidebarProps) => {
   };
 
   const handleClick = (href: string) => {
-    setTitle(label!);
-
     if (!children || href === "#") {
       setIsSubMenuOpen(true);
     } else {
@@ -61,11 +58,11 @@ const SideBarNavItem = ({ label, children, href }: SidebarProps) => {
     <div className="flex flex-col gap-3">
       <div
         className={`flex items-center justify-between px-3 py-2 text-white rounded-lg cursor-pointer hover:text-white hover:bg-white hover:bg-opacity-20 ${
-          title === label &&
+          label &&
           !children &&
           "bg-white bg-opacity-20 text-yellow-400 hover:text-yellow-400 hover:bg-opacity-20"
         } ${
-          title === label &&
+          label &&
           children &&
           isSubMenuOpen &&
           "bg-opacity-20 bg-white text-white"
@@ -89,11 +86,11 @@ const SideBarNavItem = ({ label, children, href }: SidebarProps) => {
             <div
               key={child.label}
               className={`flex items-center justify-between px-3 py-2 text-white rounded-lg cursor-pointer hover:text-white hover:bg-white hover:bg-opacity-20 ${
-                title === label &&
+                label &&
                 !children &&
                 "bg-white bg-opacity-20 text-yellow-400 hover:text-yellow-400 hover:bg-opacity-20"
               } ${
-                title === label &&
+                label &&
                 children &&
                 isSubMenuOpen &&
                 "bg-opacity-20 bg-white text-white"

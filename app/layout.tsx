@@ -3,7 +3,6 @@ import "./globals.css";
 import { Nunito } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@material-tailwind/react";
-import Sidebar from "@/app/components/Sidebar";
 
 const font = Nunito({
   subsets: ["latin"],
