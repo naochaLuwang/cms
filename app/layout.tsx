@@ -18,7 +18,7 @@ export default async function RootLayout({
     <html lang="en">
       <SessionProvider>
         <ThemeProvider>
-          <body className="font.className">{children}</body>
+          <body className="font.className bg-blue-gray-50">{children}</body>
         </ThemeProvider>
       </SessionProvider>
     </html>

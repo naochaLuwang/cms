@@ -1,10 +1,10 @@
 import React from "react";
-import { getAllMenus } from "../../actions/getAllMenus.ts";
-import ClientOnly from "../../components/ClientOnly";
-import PageHeader from "../../components/PageHeader";
-import Table from "../../components/Table";
+import { getAllMenus } from "../actions/getAllMenus";
 
-import axios from "axios";
+import PageHeader from "../components/PageHeader";
+import Table from "../components/Table";
+
+import Modal from "../components/modal/Modal";
 
 const Menu = async () => {
   const menus = await getAllMenus();
@@ -13,7 +13,7 @@ const Menu = async () => {
       <PageHeader
         title="Menu"
         action="Add a new Menu"
-        link="/dashboard/menu/add_new_menu"
+        link="/menu/add_new_menu"
       />
       <Table
         data={menus}
@@ -26,6 +26,16 @@ const Menu = async () => {
           "Actions",
         ]}
       />
+      {/* <Modal
+        disabled={isLoading}
+        isOpen={loginModal.isOpen}
+        title="Login"
+        actionLabel="Continue"
+        onClose={loginModal.onClose}
+        onSubmit={handleSubmit(onSubmit)}
+        body={bodyContent}
+        footer={footerContent}
+      /> */}
     </div>
   );
 };

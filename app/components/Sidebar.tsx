@@ -4,10 +4,10 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import activeSidebar from "../hooks/activeSidebar.ts";
+import activeSidebar from "../hooks/activeSidebar";
 
 interface NavItem {
-  label: string;
+  label?: string;
   sublabel?: string;
   children?: Array<NavItem>;
   href?: string;
@@ -46,7 +46,7 @@ const SideBarNavItem = ({ label, children, href }: SidebarProps) => {
   };
 
   const handleClick = (href: string) => {
-    setTitle(label);
+    setTitle(label!);
 
     if (!children || href === "#") {
       setIsSubMenuOpen(true);
@@ -70,7 +70,7 @@ const SideBarNavItem = ({ label, children, href }: SidebarProps) => {
           isSubMenuOpen &&
           "bg-opacity-20 bg-white text-white"
         } `}
-        onClick={children ? toggleSubMenu : () => handleClick(href)}
+        onClick={children ? toggleSubMenu : () => handleClick(href!)}
       >
         <h1 className="text-lg font-base">{label}</h1>
         {children && (
@@ -98,7 +98,7 @@ const SideBarNavItem = ({ label, children, href }: SidebarProps) => {
                 isSubMenuOpen &&
                 "bg-opacity-20 bg-white text-white"
               } `}
-              onClick={() => handleClick(child.href)}
+              onClick={() => handleClick(child.href!)}
             >
               {child.label}
             </div>

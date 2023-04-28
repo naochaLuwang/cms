@@ -34,7 +34,7 @@ const Table = ({
   data: MenusProps[];
   headings: string[];
 }) => {
-  const itemsPerPage = 3; // Number of items to display per page (updated to 2)
+  const itemsPerPage = 10; // Number of items to display per page (updated to 10)
   const [currentPage, setCurrentPage] = useState(1); // Current page number
 
   // Calculate total number of pages based on data length and items per page
@@ -60,7 +60,6 @@ const Table = ({
     }
 
     console.log(id);
-    console.log(typeof id);
 
     axios
       .delete("/api/menu", {
@@ -97,52 +96,68 @@ const Table = ({
               ))}
             </tr>
           </thead>
-          {/* Render table rows */}
-          <tbody>
-            {currentPageData.map((row, index) => (
-              <tr
-                key={row.id}
-                className="transition duration-300 ease-in-out hover:bg-gray-100"
-              >
-                {/* Render row data */}
-                <td className="px-4 py-2 text-sm text-gray-700">
-                  {startIndex + index + 1}
-                </td>
-                <td className="px-4 py-2 text-sm text-gray-700">{row.title}</td>
-                <td className="px-4 py-2 text-sm text-gray-700">{row.slug}</td>
-                <td className="px-4 py-2 text-sm text-gray-700">
-                  {row.submenus?.[0]?.title || ""}
-                </td>
-                <td className="px-4 py-2 text-sm text-gray-700">
-                  {isNaN(new Date(row.createdAt).getTime()) ? (
-                    <span>Invalid Date</span>
-                  ) : (
-                    <span>
-                      {format(new Date(row.createdAt), "dd/MM/yy HH:mm")}
-                    </span>
-                  )}
-                </td>
-                <td className="px-4 py-2 text-sm text-gray-700">
-                  <div className="flex ">
-                    <button
-                      key={`edit_${row.id}`}
-                      className="px-3 py-1 mr-2 text-white bg-green-500 rounded-md hover:bg-green- 600"
-                      // onClick={() => handleEdit(row.id)}
-                    >
-                      <FiEdit size={16} />
-                    </button>
-                    <button
-                      key={`delete_${row.id}`}
-                      className="px-3 py-1 text-white bg-red-500 rounded-md hover:bg-red-600"
-                      onClick={() => handleDelete(row.id)}
-                    >
-                      <FiTrash2 size={16} />
-                    </button>
+
+          {currentPageData.length > 0 ? (
+            <tbody className="">
+              {currentPageData.map((row, index) => (
+                <tr
+                  key={row.id}
+                  className="transition duration-300 ease-in-out hover:bg-gray-100"
+                >
+                  {/* Render row data */}
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    {startIndex + index + 1}
+                  </td>
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    {row.title}
+                  </td>
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    {row.slug}
+                  </td>
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    {row.submenus?.[0]?.title || ""}
+                  </td>
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    {isNaN(new Date(row.createdAt).getTime()) ? (
+                      <span>Invalid Date</span>
+                    ) : (
+                      <span>
+                        {format(new Date(row.createdAt), "dd/MM/yy HH:mm")}
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    <div className="flex ">
+                      <button
+                        key={`edit_${row.id}`}
+                        className="px-3 py-1 mr-2 text-white bg-green-500 rounded-md hover:bg-green- 600"
+                        // onClick={() => handleEdit(row.id)}
+                      >
+                        <FiEdit size={16} />
+                      </button>
+                      <button
+                        key={`delete_${row.id}`}
+                        className="px-3 py-1 text-white bg-red-500 rounded-md hover:bg-red-600"
+                        onClick={() => handleDelete(row.id)}
+                      >
+                        <FiTrash2 size={16} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          ) : (
+            <tbody className="w-full h-[30rem] flex items-center justify-center ">
+              <tr className="w-full">
+                <td>
+                  <div className="w-full h-[30rem] ">
+                    <h1>No data</h1>
                   </div>
                 </td>
               </tr>
-            ))}
-          </tbody>
+            </tbody>
+          )}
         </table>
         {/* Render pagination */}
         <div className="flex items-center justify-between px-4 py-3 bg-gray-100">

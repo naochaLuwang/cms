@@ -1,10 +1,16 @@
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 export async function POST(request: Request) {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return NextResponse.error();
+  }
   const body = await request.json();
 
-  const { title, slug, order, status } = body;
+  const { title, slug, order, status, pageType, content } = body;
 
   const menu = await prisma.menu.create({
     data: {
@@ -12,6 +18,9 @@ export async function POST(request: Request) {
       slug,
       order,
       status,
+      pageType,
+      userId: currentUser.id,
+      content,
     },
   });
 
@@ -22,6 +31,7 @@ export async function GET(request: Request) {
   const menus = await prisma.menu.findMany({
     include: {
       submenus: true,
+      user: true,
     },
   });
 

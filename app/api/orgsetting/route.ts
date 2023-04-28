@@ -1,8 +1,14 @@
 import prisma from "@/app/libs/prismadb";
 
 import { NextResponse } from "next/server";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 export async function POST(request: Request) {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return NextResponse.error();
+  }
   const body = await request.json();
 
   const {
@@ -16,11 +22,13 @@ export async function POST(request: Request) {
     facebook,
     linkedin,
     instagram,
+    logoUrl,
   } = body;
 
   const orgsetting = await prisma.orgsetting.create({
     data: {
       name,
+      userId: currentUser.id,
       phone,
       email,
       add1,
@@ -30,6 +38,7 @@ export async function POST(request: Request) {
       facebook,
       linkedin,
       instagram,
+      logoUrl: logoUrl,
     },
   });
 
@@ -37,7 +46,11 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-  const orgsetting = await prisma.orgsetting.findMany();
+  const orgsetting = await prisma.orgsetting.findMany({
+    include: {
+      user: true,
+    },
+  });
 
   return NextResponse.json(orgsetting);
 }

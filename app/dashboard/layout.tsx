@@ -11,8 +11,8 @@ export default async function DasboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex w-full max-h-screen">
-      <Sidebar orgName="Rely Edu CMS" title="Dashboard" />
+    <div className="flex flex-col w-full max-h-screen">
+      <Sidebar orgName="Rely Edu CMS" />
       {children}
     </div>
   );

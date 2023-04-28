@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const body = await request.json();
 
-  const { title, slug, menuId, order, status } = body;
+  const { title, slug, menuId, order, status, content, pageType } = body;
 
   const newSub = await prisma.submenu.create({
     data: {
@@ -13,6 +13,8 @@ export async function POST(request: Request) {
       order,
       menuId,
       status,
+      content,
+      pageType,
     },
   });
 

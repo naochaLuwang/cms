@@ -10,6 +10,7 @@ interface SelectProps {
   errors: FieldErrors;
   required?: boolean;
   menus: any;
+  label?: string;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -19,11 +20,15 @@ const Select: React.FC<SelectProps> = ({
   required,
   errors,
   menus,
+  label,
 }) => {
   return (
     <div className="w-full h-auto ">
-      <select {...register(id, { required })}>
-        <option value="">-- Select a menu --</option>
+      <select
+        {...register(id, { required })}
+        className="border-2 rounded-md border-neutral-300 focus:outline-none focus:ring-0 focus:border-neutral-600"
+      >
+        <option value="">-- Select {label} --</option>
         {menus.map((menu: any) => (
           <option key={menu.title} value={menu.id}>
             {menu.title}

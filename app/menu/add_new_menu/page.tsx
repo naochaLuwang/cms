@@ -3,11 +3,10 @@ import axios from "axios";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import useRegisterModal from "@/app/hooks/useRegisterModal";
 import { useState } from "react";
-import Heading from "../../../components/Heading";
-import SmallInput from "../../../components/Inputs/SmallInput";
-import { toast } from "react-hot-toast";
+import Heading from "../../components/Heading";
+import SmallInput from "../../components/Inputs/SmallInput";
+import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
 import MyEditor from "@/app/components/Editor";
 
@@ -27,6 +26,7 @@ const NewMenu = () => {
       order: 0,
       status: "ACTIVE",
       content: "",
+      pageType: "dynamic",
     },
   });
 
@@ -38,6 +38,8 @@ const NewMenu = () => {
   const editorContent = watch("content");
 
   const title = watch("title");
+  const pageType = watch("pageType");
+
   const generateSlug = () => {
     // Generate slug from username
     const slug = title.toLowerCase().replace(/\s+/g, "_");
@@ -49,17 +51,17 @@ const NewMenu = () => {
     setIsLoading(true);
     console.log(data);
 
-    // axios
-    //   .post("/api/menu", data)
-    //   .then(() => {
-    //     console.log("Sucessfully registered");
-    //   })
-    //   .catch((error) => {
-    //     toast.error("Error ");
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
+    axios
+      .post("/api/menu", data)
+      .then(() => {
+        toast.success("Menu created successfully");
+      })
+      .catch((error) => {
+        toast.error("Error ");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const bodyContent = (
@@ -86,7 +88,7 @@ const NewMenu = () => {
         />
 
         <button
-          className="w-48 h-10 py-2 text-blue-500 border border-blue-800 rounded-md"
+          className="w-48 h-10 py-2 text-white duration-200 ease-in-out transform bg-blue-600 border rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline active:bg-blue-800 translate-all"
           onClick={generateSlug}
         >
           Generate slug
@@ -101,25 +103,53 @@ const NewMenu = () => {
         required
         isNumber={true}
       />
-      <div className="flex flex-col w-full h-96">
-        <h1>Page Content</h1>
-        <MyEditor
-          onChange={handleEditorChange}
-          content={editorContent}
-          className="h-96"
-        />
+      <div className="flex items-center w-full h-auto space-x-3 ">
+        <h1 className="text-neutral-500">Page Type</h1>
+
+        <div className="flex items-center space-x-2">
+          <input
+            type="radio"
+            value="dynamic"
+            id="dynamic"
+            {...register("pageType")}
+            defaultChecked
+          />
+          <label htmlFor="dynamic">Dynamic</label>
+
+          <input
+            type="radio"
+            value="static"
+            {...register("pageType")}
+            id="static"
+          />
+          <label htmlFor="static">Static</label>
+        </div>
       </div>
+
+      {pageType === "dynamic" && (
+        <div className="flex flex-col w-full h-96">
+          <h1>Page Content</h1>
+          <MyEditor
+            onChange={handleEditorChange}
+            content={editorContent}
+            className="h-96"
+          />
+        </div>
+      )}
     </div>
   );
 
   return (
-    <Wrapper
-      disabled={isLoading}
-      title=""
-      actionLabel="Submit"
-      onSubmit={handleSubmit(onSubmit)}
-      body={bodyContent}
-    />
+    <>
+      <Wrapper
+        disabled={isLoading}
+        title=""
+        actionLabel="Submit"
+        onSubmit={handleSubmit(onSubmit)}
+        body={bodyContent}
+      />
+      <Toaster position="top-right" reverseOrder={false} />
+    </>
   );
 };
 

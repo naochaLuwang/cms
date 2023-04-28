@@ -1,6 +1,6 @@
 "use client";
 
-import { FieldErrors, FieldValues, useFormRegister } from "react-hook-form";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 interface InputProps {
   id: string;
@@ -23,13 +23,16 @@ const Textbox: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="relative flex flex-col w-full">
-      <label
-        className={` text-md  z-10 mb-2  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 ${
-          errors[id] ? "text-rose-500" : "text-neutral-500"
-        }`}
-      >
-        {label}
-      </label>
+      <div className="flex items-center space-x-2">
+        <label
+          className={` text-md  z-10 mb-2  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 ${
+            errors[id] ? "text-rose-500" : "text-neutral-500"
+          }`}
+        >
+          {label}
+        </label>
+        {required && <h1 className="text-lg text-rose-500">*</h1>}
+      </div>
 
       <textarea
         id={id}
@@ -41,7 +44,7 @@ const Textbox: React.FC<InputProps> = ({
         } ${
           errors[id] ? "focus:border-rose-500" : "focus:border-neutral-500"
         } `}
-        rows="5"
+        rows={5}
       ></textarea>
     </div>
   );
