@@ -1,7 +1,6 @@
 "use client";
 
 import Sidebar from "../components/Sidebar";
-import { useSession } from "next-auth/react";
 
 export default async function OrganizationLayout({
   children,

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { format } from "date-fns";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface MenusProps {
   id: string;
@@ -45,6 +46,8 @@ const Table = ({
     setCurrentPage(pageNumber);
   };
 
+  const router = useRouter();
+
   // Calculate index of the first and last item to display on current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -75,6 +78,7 @@ const Table = ({
       })
       .finally(() => {
         // setIsLoading(false);
+        router.refresh();
       });
   };
 
