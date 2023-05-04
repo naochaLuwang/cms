@@ -8,7 +8,7 @@ type PageHeaderProps = {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title, link, action }) => {
   return (
-    <div className="flex flex-row items-center justify-between max-w-6xl px-10 py-5 mx-auto mt-20 bg-white border shadow-md">
+    <div className="flex flex-row items-center justify-between max-w-6xl px-5 py-5 mx-auto mt-10 bg-white border shadow-md">
       <div>
         <h1 className="text-2xl font-semibold text-neutral-600">{title}</h1>
       </div>

@@ -9,9 +9,12 @@ import SmallInput from "../../components/Inputs/SmallInput";
 import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
 import MyEditor from "@/app/components/Editor";
+import { useRouter } from "next/navigation";
+import Select from "@/app/components/Select";
 
 const NewMenu = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const {
     register,
@@ -30,9 +33,8 @@ const NewMenu = () => {
     },
   });
 
-  const handleEditorChange = (value: any) => {
-    setValue("content", value);
-    console.log(value);
+  const handleEditorChange = (value: string) => {
+    setValue("content", value as string);
   };
 
   const editorContent = watch("content");
@@ -41,15 +43,13 @@ const NewMenu = () => {
   const pageType = watch("pageType");
 
   const generateSlug = () => {
-    // Generate slug from username
     const slug = title.toLowerCase().replace(/\s+/g, "_");
-    // Set the generated slug to the slug field in the form
-    setValue("slug", slug);
+
+    setValue("slug", slug as string);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
     setIsLoading(true);
-    console.log(data);
 
     axios
       .post("/api/menu", data)
@@ -57,10 +57,11 @@ const NewMenu = () => {
         toast.success("Menu created successfully");
       })
       .catch((error) => {
-        toast.error("Error ");
+        toast.error(error);
       })
       .finally(() => {
         setIsLoading(false);
+        router.push("/menu");
       });
   };
 
@@ -88,7 +89,7 @@ const NewMenu = () => {
         />
 
         <button
-          className="w-48 h-10 py-2 text-white duration-200 ease-in-out transform bg-blue-600 border rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline active:bg-blue-800 translate-all"
+          className="w-48 h-10 py-2 text-white duration-200 ease-in-out transform bg-blue-500 border rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline active:bg-blue-800 translate-all"
           onClick={generateSlug}
         >
           Generate slug
@@ -100,9 +101,23 @@ const NewMenu = () => {
         disabled={isLoading}
         register={register}
         errors={errors}
-        required
         isNumber={true}
       />
+      <div className="flex flex-col">
+        <h1 className="mb-2 text-neutral-600">
+          Status <span className="text-rose-500">*</span>
+        </h1>
+        <Select
+          id="status"
+          register={register}
+          errors={errors}
+          label="status"
+          menus={[
+            { id: "ACTIVE", title: "ACTIVE" },
+            { id: "INACTIVE", title: "INACTIVE" },
+          ]}
+        />
+      </div>
       <div className="flex items-center w-full h-auto space-x-3 ">
         <h1 className="text-neutral-500">Page Type</h1>
 
@@ -128,7 +143,7 @@ const NewMenu = () => {
 
       {pageType === "dynamic" && (
         <div className="flex flex-col w-full h-96">
-          <h1>Page Content</h1>
+          <h1 className="mb-5 text-neutral-500">Page Content</h1>
           <MyEditor
             onChange={handleEditorChange}
             content={editorContent}

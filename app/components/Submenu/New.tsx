@@ -13,10 +13,12 @@ import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
 import Select from "@/app/components/Select";
 import MyEditor from "@/app/components/Editor";
+import { useRouter } from "next/navigation";
 
 const NewSubMenu = ({ menus }: any) => {
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -55,15 +57,15 @@ const NewSubMenu = ({ menus }: any) => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    console.log(data);
 
     axios
       .post("/api/submenu", data)
       .then(() => {
-        console.log("Submenu created successfully");
+        toast.success("Submenu created successfully");
+        router.push("/submenu");
       })
       .catch((error) => {
-        toast.error("Error ");
+        toast.error("Error creating Submenu");
       })
       .finally(() => {
         setIsLoading(false);

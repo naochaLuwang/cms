@@ -14,6 +14,15 @@ interface MenusProps {
   createdAt: string;
   updatedAt: string;
   submenus: SubmenuProps[];
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    emailVerified: any;
+    hashedPassword: string;
+    createdAt: string;
+    updatedAt: string;
+  };
   actions?: React.ReactNode;
 }
 
@@ -54,6 +63,10 @@ const Table = ({
 
   // Slice data array to get items for current page
   const currentPageData = data.slice(startIndex, endIndex);
+
+  const handleEdit = (id: string) => {
+    router.push(`/menu/edit?id=${id}`);
+  };
 
   const handleDelete = (id: string) => {
     // Check if id is empty or undefined
@@ -116,11 +129,21 @@ const Table = ({
                     {row.title}
                   </td>
                   <td className="px-4 py-2 text-sm text-gray-700">
-                    {row.slug}
+                    /{row.slug}
+                  </td>
+
+                  <td className="px-4 py-2 text-sm text-gray-700 w-fit">
+                    <div className="flex items-center px-2 py-1 space-x-2 bg-green-100 rounded-3xl w-fit">
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      <h1 className="font-semibold text-green-600 lowercase">
+                        {row.status}
+                      </h1>
+                    </div>
                   </td>
                   <td className="px-4 py-2 text-sm text-gray-700">
-                    {row.submenus?.[0]?.title || ""}
+                    {row.user?.name}
                   </td>
+
                   <td className="px-4 py-2 text-sm text-gray-700">
                     {isNaN(new Date(row.createdAt).getTime()) ? (
                       <span>Invalid Date</span>
@@ -134,17 +157,19 @@ const Table = ({
                     <div className="flex ">
                       <button
                         key={`edit_${row.id}`}
-                        className="px-3 py-1 mr-2 text-white bg-green-500 rounded-md hover:bg-green- 600"
-                        // onClick={() => handleEdit(row.id)}
+                        className="flex items-center px-3 py-1 mr-2 space-x-2 text-blue-600 bg-blue-100 rounded-md hover:text-blue-800 w-fit hover:bg-blue-200 active:bg-blue-300"
+                        onClick={() => handleEdit(row.id)}
                       >
                         <FiEdit size={16} />
+                        <h1 className="font-medium">Edit</h1>
                       </button>
                       <button
                         key={`delete_${row.id}`}
-                        className="px-3 py-1 text-white bg-red-500 rounded-md hover:bg-red-600"
+                        className="flex items-center px-3 py-1 space-x-2 text-white bg-red-500 rounded-md w-fit hover:bg-red-600"
                         onClick={() => handleDelete(row.id)}
                       >
                         <FiTrash2 size={16} />
+                        <h1 className="font-medium">Delete</h1>
                       </button>
                     </div>
                   </td>

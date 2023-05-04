@@ -1,13 +1,28 @@
-import React from "react";
-import { getAllMenus } from "../actions/getAllMenus";
-
+import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
 import Table from "../components/Table";
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import { getAllMenus } from "@/app/actions/getAllMenus";
 
 export const revalidate = 0;
 
 const Menu = async () => {
+  const user = await getCurrentUser();
   const menus = await getAllMenus();
+
+  console.log(user);
+  console.log(menus);
+
+  if (menus.length === 0) {
+    return (
+      <Empty
+        imgp="/menu.svg"
+        label="Oops! it looks like your website menu is empty."
+        href="/menu/add_new_menu"
+        title="Create New Menu"
+      />
+    );
+  }
   return (
     <div className="w-full h-auto">
       <PageHeader
@@ -21,7 +36,9 @@ const Menu = async () => {
           "Serial No",
           "Title",
           "Slug",
-          "Submenu",
+          "Status",
+
+          "Created By",
           "Created At",
           "Actions",
         ]}

@@ -46,11 +46,7 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-  const orgsetting = await prisma.orgsetting.findMany({
-    include: {
-      user: true,
-    },
-  });
+  const orgsetting = await prisma.orgsetting.findMany({});
 
   return NextResponse.json(orgsetting);
 }
