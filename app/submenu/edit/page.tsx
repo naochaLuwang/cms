@@ -1,4 +1,4 @@
-import EditSubMenuPage from "@/app/components/EditSubmenu";
+import EditSubMenuPage from "@/app/components/Edit/EditSubmenu";
 
 import { getSubMenu } from "@/app/actions/getSubmenu";
 import { getAllMenus } from "@/app/actions/getAllMenus";

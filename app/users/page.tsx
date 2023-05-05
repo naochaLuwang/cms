@@ -27,16 +27,7 @@ const UserPage = async () => {
       />
       <UserTable
         data={users}
-        headings={[
-          "Serial No",
-          "Name",
-          "Email",
-          //   "Status",
-
-          //   "Created By",
-          "Created At",
-          "Actions",
-        ]}
+        headings={["Serial No", "Name", "Email", "Created At", "Actions"]}
       />
     </div>
   );

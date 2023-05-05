@@ -1,7 +1,7 @@
 import { getAllDepartments } from "../actions/getAllDepartments";
 import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
-import DepartmentTable from "../components/DepartmentTable";
+import DepartmentTable from "../components/Table/DepartmentTable";
 
 export const revalidate = 0;
 

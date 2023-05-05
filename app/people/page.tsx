@@ -1,6 +1,6 @@
 import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
-import PeopleTable from "../components/PeopleTable";
+import PeopleTable from "../components/Table/PeopleTable";
 
 import { getAllPeople } from "@/app/actions/getAllPeople";
 

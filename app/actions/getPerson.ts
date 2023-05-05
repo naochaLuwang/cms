@@ -1,4 +1,4 @@
-export async function getPerson(id: any) {
+export async function getPerson(id: string) {
   const response = await fetch(`${process.env.API_URL}/api/people/${id}`, {
     cache: "no-store",
   });

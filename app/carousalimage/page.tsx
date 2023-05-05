@@ -1,5 +1,5 @@
 import { getAllCarousalImages } from "../actions/getAllCarousalImages";
-import ImageTable from "../components/ImageTable";
+import ImageTable from "../components/Table/ImageTable";
 
 import PageHeader from "../components/PageHeader";
 

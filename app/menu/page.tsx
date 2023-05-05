@@ -1,6 +1,6 @@
 import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
-import Table from "../components/Table";
+import Table from "../components/Table/Table";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { getAllMenus } from "@/app/actions/getAllMenus";
 

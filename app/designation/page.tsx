@@ -2,7 +2,7 @@ import { getAllDesignation } from "../actions/getAllDesignation";
 import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
 
-import DesignationTable from "../components/DesignationTable";
+import DesignationTable from "../components/Table/DesignationTable";
 
 export const revalidate = 0;
 
