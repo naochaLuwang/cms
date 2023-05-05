@@ -3,5 +3,16 @@ export default withAuth({
   secret: process.env.NEXT_AUTH_SECRET,
 });
 export const config = {
-  matcher: ["/", "/dashboard", "/menu", "/submenu", "/orgsetting"],
+  matcher: [
+    "/",
+    "/dashboard",
+    "/menu",
+    "/submenu",
+    "/orgsetting",
+    "/people",
+    "/department",
+    "/designation",
+    "/albulm",
+    "/ca",
+  ],
 };
