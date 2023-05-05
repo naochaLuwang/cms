@@ -7,14 +7,14 @@ import { getAllPeople } from "@/app/actions/getAllPeople";
 export const revalidate = 0;
 
 const Menu = async () => {
-  const people = await getAllPeople();
+  const people: PeopleProps[] = await getAllPeople();
 
   if (people.length === 0) {
     return (
       <Empty
-        imgp="/menu.svg"
+        imgp="/people.svg"
         label="Oops! it looks like it is empty."
-        href="/menu/add_new_people"
+        href="/people/add_new_people"
         title="Create New Person"
       />
     );
