@@ -96,3 +96,15 @@ interface SubsubmenuProps {
   createdAt: string;
   updatedAt: string;
 }
+
+interface DepartmentProps {
+  id: string;
+  departmentName: string;
+  departmentCode: string;
+  order: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+}

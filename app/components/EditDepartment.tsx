@@ -4,15 +4,20 @@ import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { useState } from "react";
-import Heading from "../../components/Heading";
-import SmallInput from "../../components/Inputs/SmallInput";
+import Heading from "@/app/components/Heading";
+import SmallInput from "@/app/components/Inputs/SmallInput";
 import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
+import MyEditor from "@/app/components/Editor";
 
 import { useRouter } from "next/navigation";
-import Select from "@/app/components/Select";
+import Select from "./Select";
 
-const NewDepartment = () => {
+interface EditDepartmentProps {
+  department: DepartmentProps;
+}
+
+const EditDepartment: React.FC<EditDepartmentProps> = ({ department }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -24,28 +29,27 @@ const NewDepartment = () => {
     watch,
   } = useForm<FieldValues>({
     defaultValues: {
-      departmentName: "",
-      departmentCode: "",
-      order: 0,
-      status: "ACTIVE",
+      departmentName: department?.departmentName,
+      departmentCode: department?.departmentCode,
+      order: department?.order,
+      status: department?.status,
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
     setIsLoading(true);
-    console.log(data);
 
     axios
-      .post("/api/department", data)
+      .put(`/api/department/${department.id}`, data)
       .then(() => {
-        toast.success("Department created successfully");
-        router.push("/department");
+        toast.success("Department Updated successfully");
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error("Failed to update Department ");
       })
       .finally(() => {
         setIsLoading(false);
+        router.push("/department");
       });
   };
 
@@ -104,7 +108,7 @@ const NewDepartment = () => {
       <Wrapper
         disabled={isLoading}
         title=""
-        actionLabel="Submit"
+        actionLabel="Update"
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
       />
@@ -113,4 +117,4 @@ const NewDepartment = () => {
   );
 };
 
-export default NewDepartment;
+export default EditDepartment;

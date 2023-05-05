@@ -43,3 +43,5 @@ const SubMenu = async () => {
 };
 
 export default SubMenu;
+
+export const revalidate = 0;
