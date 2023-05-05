@@ -3,7 +3,7 @@ import Empty from "../components/Empty";
 
 import PageHeader from "../components/PageHeader";
 
-import SubsubMenuTable from "../components/Subsubmenutable";
+import SubsubMenuTable from "../components/Table/Subsubmenutable";
 
 export const revalidate = 0;
 

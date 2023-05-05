@@ -1,7 +1,7 @@
 import { getAllUsers } from "../actions/getAllUsers";
 import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
-import UserTable from "../components/UserTable";
+import UserTable from "../components/Table/UserTable";
 
 interface UserProps {
   id: string;

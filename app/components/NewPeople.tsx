@@ -10,12 +10,12 @@ import Heading from "../components/Heading";
 import SmallInput from "../components/Inputs/SmallInput";
 import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
-import DepartmentSelect from "@/app/components/DepartmentSelect";
+import DepartmentSelect from "@/app/components/Select/DepartmentSelect";
 import Select from "@/app/components/Select";
 import MyEditor from "@/app/components/Editor";
 import { useRouter } from "next/navigation";
 import ImageUpload from "./Inputs/ImageUpload";
-import DesignationSelect from "./DesignationSelect";
+import DesignationSelect from "./Select/DesignationSelect";
 
 interface NewPeopleProps {
   department: DepartmentProps[];
