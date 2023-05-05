@@ -16,13 +16,11 @@ import { RiBuilding3Line } from "react-icons/ri";
 import { MdPeople } from "react-icons/md";
 import { IoImagesOutline } from "react-icons/io5";
 
-import { MdMenu } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
-  const sidebarRef = useRef();
   const pathname = usePathname();
 
   const { data: session } = useSession();

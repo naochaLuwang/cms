@@ -34,15 +34,15 @@ const SubMenu = ({ data }: any) => {
         className="flex h-0 flex-col pl-14 text-[0.8rem] font-normal overflow-hidden"
       >
         {data.menus.map((menu: any) => (
-          <li
-            key={menu.label}
-            className={`link  hover:bg-blue-100 hover:border-l-2 hover:border-blue-800 hover:bg-opacity-50 capitalize ${
-              pathname == menu.href && "text-blue-800 w-full bg-blue-100"
-            }`}
-          >
-            {/* className="hover:text-blue-600 hover:font-medium" */}
-            <Link href={menu.href}>{menu.label}</Link>
-          </li>
+          <Link href={menu.href} key={menu.label}>
+            <li
+              className={`link  hover:bg-blue-100 hover:border-l-2 hover:border-blue-800 hover:bg-opacity-50 capitalize ${
+                pathname == menu.href && "text-blue-800 w-full bg-blue-100"
+              }`}
+            >
+              {menu.label}
+            </li>
+          </Link>
         ))}
       </motion.ul>
     </>
