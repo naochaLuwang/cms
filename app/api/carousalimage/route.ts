@@ -27,7 +27,11 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-  const orgsetting = await prisma.carousalimage.findMany({});
+  const orgsetting = await prisma.carousalimage.findMany({
+    include: {
+      user: true,
+    },
+  });
 
   return NextResponse.json(orgsetting);
 }

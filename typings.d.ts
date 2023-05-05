@@ -142,3 +142,14 @@ interface DesignationProps {
   createdBy: string;
   updatedBy: string;
 }
+
+interface carousalimageProps {
+  id: string;
+  userId: string;
+  title: string;
+  imgUrl: string;
+  status: string;
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+}

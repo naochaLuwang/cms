@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
 
 interface ImageProps {
   id: string;
@@ -36,6 +37,15 @@ const ImageTable = ({
   data: ImageProps[];
   headings: string[];
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   const itemsPerPage = 10; // Number of items to display per page (updated to 10)
   const [currentPage, setCurrentPage] = useState(1); // Current page number
 
@@ -56,6 +66,10 @@ const ImageTable = ({
   // Slice data array to get items for current page
   const currentPageData = data.slice(startIndex, endIndex);
 
+  const handleEdit = (id: string) => {
+    router.push(`/carousalimage/edit?id=${id}`);
+  };
+
   const handleDelete = (id: string) => {
     // Check if id is empty or undefined
     if (!id) {
@@ -66,13 +80,13 @@ const ImageTable = ({
     console.log(id);
 
     axios
-      .delete("/api/menu", {
+      .delete("/api/carousalimage", {
         params: {
           id,
         },
       })
       .then(() => {
-        console.log("Successfully deleted");
+        toast.success("Successfully deleted");
       })
       .catch((error) => {
         console.log(error);
@@ -146,18 +160,48 @@ const ImageTable = ({
                     <div className="flex ">
                       <button
                         key={`edit_${row.id}`}
-                        className="px-3 py-1 mr-2 text-white bg-green-500 rounded-md hover:bg-green- 600"
-                        // onClick={() => handleEdit(row.id)}
+                        className="flex items-center px-3 py-1 mr-2 space-x-2 text-blue-600 bg-blue-100 rounded-md hover:text-blue-800 w-fit hover:bg-blue-200 active:bg-blue-300"
+                        onClick={() => handleEdit(row.id)}
                       >
                         <FiEdit size={16} />
+                        <h1 className="font-medium">Edit</h1>
                       </button>
                       <button
                         key={`delete_${row.id}`}
-                        className="px-3 py-1 text-white bg-red-500 rounded-md hover:bg-red-600"
-                        onClick={() => handleDelete(row.id)}
+                        className="flex items-center px-3 py-1 space-x-2 text-white bg-red-500 rounded-md w-fit hover:bg-red-600"
+                        // onClick={() => handleDelete(row.id)}
+                        onClick={handleOpen}
                       >
                         <FiTrash2 size={16} />
+                        <h1 className="font-medium">Delete</h1>
                       </button>
+                      {isOpen && (
+                        <div className="fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center w-full">
+                          <div className="absolute top-0 bottom-0 left-0 right-0 bg-black opacity-50"></div>
+
+                          <div className="z-50 p-4 bg-white rounded shadow-lg w-96">
+                            <p className="mb-4 text-lg text-neutral-600">
+                              Are you sure you want to delete?
+                            </p>
+
+                            <div className="flex justify-end">
+                              <button
+                                className="px-4 py-2 mr-4 text-white bg-gray-500 rounded"
+                                onClick={handleClose}
+                              >
+                                Cancel
+                              </button>
+
+                              <button
+                                className="px-4 py-2 text-white bg-red-500 rounded"
+                                onClick={() => handleDelete(row.id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -220,6 +264,7 @@ const ImageTable = ({
           </div>
         </div>
       </div>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };
