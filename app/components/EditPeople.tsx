@@ -4,53 +4,62 @@ import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { useState } from "react";
-
-import Heading from "../components/Heading";
-
-import SmallInput from "../components/Inputs/SmallInput";
+import Heading from "@/app/components/Heading";
+import SmallInput from "@/app/components/Inputs/SmallInput";
 import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
-import DepartmentSelect from "@/app/components/DepartmentSelect";
-import Select from "@/app/components/Select";
 import MyEditor from "@/app/components/Editor";
+
 import { useRouter } from "next/navigation";
+import Select from "./Select";
 import ImageUpload from "./Inputs/ImageUpload";
 import DesignationSelect from "./DesignationSelect";
+import DepartmentSelect from "./DepartmentSelect";
 
-interface NewPeopleProps {
+interface EditPeopleProps {
+  person: PeopleProps;
   department: DepartmentProps[];
-  designations: DesignationProps[];
+  designation: DesignationProps[];
 }
 
-const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+const EditPeople: React.FC<EditPeopleProps> = ({
+  person,
+  department,
+  designation,
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
     setValue,
     watch,
   } = useForm<FieldValues>({
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      slug: "",
-      email: "",
-      phone: "",
-      showEmail: "YES",
-      showPhone: "YES",
-      departmentId: "",
-      designationId: "",
-      bio: "",
-      order: 0,
-      profileUrl: "",
+      firstName: person?.firstName,
+      lastName: person?.lastName,
+      slug: person?.slug,
+      email: person?.email,
+      phone: person?.phone,
+      showEmail: person?.showEmail,
+      showPhone: person?.showPhone,
+      departmentId: person?.departmentId,
+      designationId: person?.designationId,
+      bio: person?.bio,
+      order: person?.order,
+      profileUrl: person?.profileUrl,
 
-      status: "ACTIVE",
+      status: person?.status,
     },
   });
+
+  const handleEditorChange = (value: string) => {
+    setValue("bio", value);
+  };
+
+  const editorContent = watch("bio");
 
   const firstName = watch("firstName");
   const lastName = watch("lastName");
@@ -67,34 +76,27 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
     setValue("slug", slug as string);
   };
 
-  const handleEditorChange = (value: string) => {
-    setValue("bio", value);
-    console.log(value);
-  };
-
-  const editorContent = watch("bio");
-
-  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
     axios
-      .post("/api/people", data)
+      .put(`/api/people/${person.id}`, data)
       .then(() => {
-        toast.success("People created successfully");
-        router.push("/people");
+        toast.success("Person Updated successfully");
       })
       .catch((error) => {
-        toast.error("Error creating People");
+        toast.error("Failed to update Person ");
       })
       .finally(() => {
         setIsLoading(false);
+        router.push("/people");
       });
   };
 
   const bodyContent = (
     <>
       <div className="flex flex-col gap-4">
-        <Heading title="People" subtitle="Add a new person" />
+        <Heading title="People" subtitle="Edit Person Data" />
         <SmallInput
           id="firstName"
           label="First Name"
@@ -222,7 +224,7 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
             id="designationId"
             register={register}
             errors={errors}
-            designations={designations}
+            designations={designation}
             label="Designation"
           />
         </div>
@@ -278,7 +280,7 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
       <Wrapper
         disabled={isLoading}
         title=""
-        actionLabel="Submit"
+        actionLabel="Update"
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
       />
@@ -287,4 +289,4 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
   );
 };
 
-export default NewPeople;
+export default EditPeople;

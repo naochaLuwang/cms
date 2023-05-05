@@ -1,11 +1,47 @@
-import React from "react";
+import Empty from "../components/Empty";
+import PageHeader from "../components/PageHeader";
+import PeopleTable from "../components/PeopleTable";
 
-const PeoplePage = () => {
+import { getAllPeople } from "@/app/actions/getAllPeople";
+
+export const revalidate = 0;
+
+const Menu = async () => {
+  const people = await getAllPeople();
+
+  if (people.length === 0) {
+    return (
+      <Empty
+        imgp="/menu.svg"
+        label="Oops! it looks like it is empty."
+        href="/menu/add_new_people"
+        title="Create New Person"
+      />
+    );
+  }
   return (
-    <div>
-      <h1>People Page</h1>
+    <div className="w-full h-auto">
+      <PageHeader
+        title="People"
+        action="Add a new Person"
+        link="/people/add_new_people"
+      />
+      <PeopleTable
+        data={people}
+        headings={[
+          "Serial No",
+          "Name",
+          "Designation",
+          "Department",
+          "Status",
+
+          "Created By",
+          "Created At",
+          "Actions",
+        ]}
+      />
     </div>
   );
 };
 
-export default PeoplePage;
+export default Menu;

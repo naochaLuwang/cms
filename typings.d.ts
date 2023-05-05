@@ -108,3 +108,37 @@ interface DepartmentProps {
   createdBy: string;
   updatedBy: string;
 }
+
+interface PeopleProps {
+  id: string;
+  firstName: string;
+  slug: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  departmentId: string;
+  designationId: string;
+  showEmail: string;
+  showPhone: string;
+  status: string;
+  profileUrl: string;
+  bio: string;
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+  department: DepartmentProps;
+  designation: DesignationProps;
+}
+
+interface DesignationProps {
+  id: string;
+  designationName: string;
+  designationCode: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+}

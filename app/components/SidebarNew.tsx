@@ -13,6 +13,8 @@ import { BsPerson } from "react-icons/bs";
 
 import { TbReportAnalytics } from "react-icons/tb";
 import { RiBuilding3Line } from "react-icons/ri";
+import { MdPeople } from "react-icons/md";
+import { IoImagesOutline } from "react-icons/io5";
 
 import { MdMenu } from "react-icons/md";
 import { usePathname } from "next/navigation";
@@ -59,7 +61,7 @@ const Sidebar = () => {
     },
     {
       name: "Images",
-      icon: TbReportAnalytics,
+      icon: IoImagesOutline,
 
       menus: [
         {
@@ -104,7 +106,7 @@ const Sidebar = () => {
     },
     {
       name: "People",
-      icon: TbReportAnalytics,
+      icon: MdPeople,
 
       menus: [
         {
