@@ -11,7 +11,7 @@ import Wrapper from "@/app/components/Wrapper";
 import MyEditor from "@/app/components/Editor";
 
 import { useRouter } from "next/navigation";
-import Select from "./Select";
+import Select from "../Select";
 
 interface EditMenuProps {
   menu: MenuProps;

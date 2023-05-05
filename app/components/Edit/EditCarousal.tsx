@@ -10,8 +10,8 @@ import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
 
 import { useRouter } from "next/navigation";
-import Select from "./Select";
-import ImageUpload from "./Inputs/ImageUpload";
+import Select from "../Select";
+import ImageUpload from "../Inputs/ImageUpload";
 
 interface EditCarousalProps {
   carousalImage: carousalimageProps;

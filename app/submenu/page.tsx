@@ -2,7 +2,7 @@ import { getAllSubMenus } from "../actions/getAllSubMenus";
 import Empty from "../components/Empty";
 
 import PageHeader from "../components/PageHeader";
-import SubMenuTable from "../components/SubMenuTable";
+import SubMenuTable from "../components/Table/SubMenuTable";
 
 const SubMenu = async () => {
   const submenus = await getAllSubMenus();

@@ -11,10 +11,10 @@ import Wrapper from "@/app/components/Wrapper";
 import MyEditor from "@/app/components/Editor";
 
 import { useRouter } from "next/navigation";
-import Select from "./Select";
-import ImageUpload from "./Inputs/ImageUpload";
-import DesignationSelect from "./DesignationSelect";
-import DepartmentSelect from "./DepartmentSelect";
+import Select from "../Select";
+import ImageUpload from "../Inputs/ImageUpload";
+import DesignationSelect from "../Select/DesignationSelect";
+import DepartmentSelect from "../Select/DepartmentSelect";
 
 interface EditPeopleProps {
   person: PeopleProps;
