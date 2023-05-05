@@ -62,13 +62,13 @@ const NewSubsubMenu = ({ submenus }: any) => {
       .post("/api/subsubmenu", data)
       .then(() => {
         toast.success("Sub submenu created successfully");
-        router.push("/subsubmenu");
       })
       .catch((error) => {
         toast.error("Error ");
       })
       .finally(() => {
         setIsLoading(false);
+        router.push("/subsubmenu");
       });
   };
 

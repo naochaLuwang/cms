@@ -3,7 +3,6 @@ import axios from "axios";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import useRegisterModal from "@/app/hooks/useRegisterModal";
 import { useState } from "react";
 
 import Heading from "../../components/Heading";
@@ -16,7 +15,6 @@ import MyEditor from "@/app/components/Editor";
 import { useRouter } from "next/navigation";
 
 const NewSubMenu = ({ menus }: any) => {
-  const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -62,13 +60,13 @@ const NewSubMenu = ({ menus }: any) => {
       .post("/api/submenu", data)
       .then(() => {
         toast.success("Submenu created successfully");
-        router.push("/submenu");
       })
       .catch((error) => {
         toast.error("Error creating Submenu");
       })
       .finally(() => {
         setIsLoading(false);
+        router.push("/submenu");
       });
   };
 

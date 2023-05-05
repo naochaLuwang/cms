@@ -12,11 +12,11 @@ import Wrapper from "@/app/components/Wrapper";
 import { useRouter } from "next/navigation";
 import Select from "../Select";
 
-interface EditDepartmentProps {
-  department: DepartmentProps;
+interface EditDesignationProps {
+  designation: DesignationProps;
 }
 
-const EditDepartment: React.FC<EditDepartmentProps> = ({ department }) => {
+const EditDesignation: React.FC<EditDesignationProps> = ({ designation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -28,10 +28,10 @@ const EditDepartment: React.FC<EditDepartmentProps> = ({ department }) => {
     watch,
   } = useForm<FieldValues>({
     defaultValues: {
-      departmentName: department?.departmentName,
-      departmentCode: department?.departmentCode,
-      order: department?.order,
-      status: department?.status,
+      designationName: designation?.designationName,
+      designationCode: designation?.designationCode,
+
+      status: designation?.status,
     },
   });
 
@@ -39,25 +39,25 @@ const EditDepartment: React.FC<EditDepartmentProps> = ({ department }) => {
     setIsLoading(true);
 
     axios
-      .put(`/api/department/${department.id}`, data)
+      .put(`/api/designation/${designation.id}`, data)
       .then(() => {
-        toast.success("Department Updated successfully");
+        toast.success("Designation Updated successfully");
       })
       .catch((error) => {
-        toast.error("Failed to update Department ");
+        toast.error("Failed to update Designation ");
       })
       .finally(() => {
         setIsLoading(false);
-        router.push("/department");
+        router.push("/designation");
       });
   };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Department" subtitle="Edit department" />
+      <Heading title="Designation" subtitle="Edit designation" />
       <SmallInput
-        id="departmentName"
-        label="Department Name"
+        id="designationName"
+        label="Designation Name"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -66,22 +66,13 @@ const EditDepartment: React.FC<EditDepartmentProps> = ({ department }) => {
       />
 
       <SmallInput
-        id="departmentCode"
-        label="Department Code"
+        id="designationCode"
+        label="Designation Code"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
         isNumber={false}
-      />
-
-      <SmallInput
-        id="order"
-        label="Display Order"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        isNumber={true}
       />
 
       <div className="flex flex-col">
@@ -116,4 +107,4 @@ const EditDepartment: React.FC<EditDepartmentProps> = ({ department }) => {
   );
 };
 
-export default EditDepartment;
+export default EditDesignation;

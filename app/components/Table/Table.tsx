@@ -4,6 +4,7 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { format } from "date-fns";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 interface MenusProps {
   id: string;
@@ -84,8 +85,6 @@ const Table = ({
       return;
     }
 
-    console.log(id);
-
     axios
       .delete("/api/menu", {
         params: {
@@ -93,7 +92,7 @@ const Table = ({
         },
       })
       .then(() => {
-        console.log("Successfully deleted");
+        toast.success("Successfully deleted");
       })
       .catch((error) => {
         console.log(error);
@@ -137,7 +136,7 @@ const Table = ({
                   <td className="px-4 py-2 text-sm text-gray-700">
                     {row.title}
                   </td>
-                  <td className="px-4 py-2 text-sm text-gray-700">
+                  <td className="px-4 py-2 text-sm text-blue-500">
                     /{row.slug}
                   </td>
 
@@ -175,7 +174,6 @@ const Table = ({
                       <button
                         key={`delete_${row.id}`}
                         className="flex items-center px-3 py-1 space-x-2 text-white bg-red-500 rounded-md w-fit hover:bg-red-600"
-                        // onClick={() => handleDelete(row.id)}
                         onClick={handleOpen}
                       >
                         <FiTrash2 size={16} />
@@ -270,6 +268,7 @@ const Table = ({
           </div>
         </div>
       </div>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

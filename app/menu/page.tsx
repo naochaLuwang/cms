@@ -1,17 +1,13 @@
 import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
 import Table from "../components/Table/Table";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+
 import { getAllMenus } from "@/app/actions/getAllMenus";
 
 export const revalidate = 0;
 
 const Menu = async () => {
-  const user = await getCurrentUser();
   const menus = await getAllMenus();
-
-  console.log(user);
-  console.log(menus);
 
   if (menus.length === 0) {
     return (

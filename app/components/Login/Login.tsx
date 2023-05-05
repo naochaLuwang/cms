@@ -11,7 +11,7 @@ import FormContainer from "../Form/FormContainer";
 import Heading from "../Heading";
 import Input from "../Inputs/Input";
 import { toast } from "react-hot-toast";
-import useLoginModal from "@/app/hooks/useLoginModal";
+
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -21,7 +21,6 @@ interface User {
 }
 
 const LoginForm: React.FC = () => {
-  const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -57,13 +56,12 @@ const LoginForm: React.FC = () => {
     }).then((callback) => {
       setIsLoading(false);
 
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
       if (callback?.ok) {
         toast.success("Logged in");
         router.replace("/");
-      }
-
-      if (callback?.error) {
-        toast.error(callback.error);
       }
     });
   };
@@ -99,7 +97,7 @@ const LoginForm: React.FC = () => {
       {!user ? (
         <FormContainer
           disabled={isLoading}
-          title="Pratiksha Edu CMS"
+          title="Rely Edu CMS"
           actionLabel="Login"
           onSubmit={handleSubmit(onSubmit)}
           body={bodyContent}

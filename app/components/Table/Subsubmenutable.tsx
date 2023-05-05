@@ -150,7 +150,7 @@ const SubsubMenuTable = ({
                   <td className="px-4 py-2 text-sm text-gray-700">
                     {row.title}
                   </td>
-                  <td className="px-4 py-2 text-sm text-gray-700">
+                  <td className="px-4 py-2 text-sm text-orange-700">
                     /{row.slug}
                   </td>
                   <td className="px-4 py-2 text-sm text-blue-600">
