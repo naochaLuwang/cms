@@ -4,6 +4,11 @@ import Table from "../components/Table/Table";
 
 import { getAllMenus } from "@/app/actions/getAllMenus";
 
+export  const  metadata = {
+    title:"Link | Rely CMS 2"
+
+}
+
 export const revalidate = 0;
 
 const Menu = async () => {

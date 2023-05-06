@@ -1,21 +1,22 @@
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+
 import { verifyJwt } from "@/app/libs/jwt";
 
 export async function POST(request: Request) {
-  // const accessToken = request.headers.get("authorization");
+  const accessToken = request.headers.get("authorization");
 
-  // if (!accessToken || !verifyJwt(accessToken)) {
-  //   return new Response(
-  //     JSON.stringify({
-  //       error: "unauthorized",
-  //     }),
-  //     {
-  //       status: 401,
-  //     }
-  //   );
-  // }
+  if (!accessToken || !verifyJwt(accessToken)) {
+    return new Response(
+      JSON.stringify({
+        error: "unauthorized",
+      }),
+      {
+        status: 401,
+      }
+    );
+  }
 
   const currentUser = await getCurrentUser();
 
@@ -43,7 +44,7 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   // const accessToken = request.headers.get("authorization");
-
+  //
   // if (!accessToken || !verifyJwt(accessToken)) {
   //   return new Response(
   //     JSON.stringify({
