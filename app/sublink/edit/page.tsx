@@ -1,15 +1,14 @@
-import EditSubMenuPage from "@/app/components/Edit/EditSubmenu";
-
-import { getSubMenu } from "@/app/actions/getSubmenu";
-import { getAllMenus } from "@/app/actions/getAllMenus";
+import { getSubLink } from "@/app/actions/getSublink";
+import { getAllLinks } from "@/app/actions/getAllLinks";
+import EditSubLink from "@/app/components/Edit/EditSubmenu";
 
 const EditSubmenuPage = async ({ searchParams }: any) => {
-  const submenus = await getSubMenu(searchParams.id);
-  const menus = await getAllMenus();
+  const sublink = await getSubLink(searchParams.id);
+  const links = await getAllLinks();
 
   return (
     <>
-      <EditSubMenuPage submenu={submenus} menus={menus} />
+      <EditSubLink links={links} sublink={sublink} />
     </>
   );
 };

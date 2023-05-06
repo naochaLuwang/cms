@@ -11,17 +11,15 @@ import Wrapper from "@/app/components/Wrapper";
 import MyEditor from "@/app/components/Editor";
 import { useRouter } from "next/navigation";
 import Select from "@/app/components/Select";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 const NewMenu = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const {data: session} = useSession();
+  const { data: session } = useSession();
 
-    console.log(session?.user.accessToken)
-
-
+  console.log(session?.user.accessToken);
 
   const {
     register,
@@ -59,15 +57,14 @@ const NewMenu = () => {
     setIsLoading(true);
 
     axios
-      .post("/api/menu", data , {
-          headers:{
-              "Content-Type":"application/json",
-              Authorization: session?.user.accessToken,
-
-          }
+      .post("/api/links", data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: session?.user.accessToken,
+        },
       })
       .then(() => {
-        toast.success("Menu created successfully");
+        toast.success("Link created successfully");
       })
       .catch((error) => {
         toast.error(error);

@@ -1,8 +1,8 @@
 import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
-import Table from "../components/Table/Table";
+import LinkTable from "../components/Table/LinkTable";
 
-import { getAllMenus } from "@/app/actions/getAllMenus";
+import { getAllLinks } from "@/app/actions/getAllLinks";
 
 export  const  metadata = {
     title:"Link | Rely CMS 2"
@@ -11,8 +11,8 @@ export  const  metadata = {
 
 export const revalidate = 0;
 
-const Menu = async () => {
-  const menus = await getAllMenus();
+const LinkPage = async () => {
+  const menus = await getAllLinks();
 
   if (menus.length === 0) {
     return (
@@ -31,7 +31,7 @@ const Menu = async () => {
         action="Add a new Link"
         link="/link/add_new_link"
       />
-      <Table
+      <LinkTable
         data={menus}
         headings={[
           "Serial No",
@@ -48,4 +48,4 @@ const Menu = async () => {
   );
 };
 
-export default Menu;
+export default LinkPage;

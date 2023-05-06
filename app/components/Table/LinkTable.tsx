@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
-interface MenusProps {
+interface LinkProps {
   id: string;
   title: string;
   slug: string;
@@ -14,7 +14,7 @@ interface MenusProps {
   status: boolean;
   createdAt: string;
   updatedAt: string;
-  submenus: SubmenuProps[];
+  sublinks: SubLinkProps[];
   user: {
     id: string;
     email: string;
@@ -24,24 +24,12 @@ interface MenusProps {
     createdAt: string;
     updatedAt: string;
   };
-  menu: {
-    id: string;
-    title: string;
-    slug: string;
-    order: number;
-    status: string;
-    pageType: string;
-    userId: string;
-    content: any;
-    createdAt: string;
-    updatedAt: string;
-  };
   actions?: React.ReactNode;
 }
 
-interface SubmenuProps {
+interface SubLinkProps {
   id: string;
-  menuId: string;
+  linkId: string;
   title: string;
   slug: string;
   order: number;
@@ -50,11 +38,11 @@ interface SubmenuProps {
   updatedAt: string;
 }
 
-const SubMenuTable = ({
+const LinkTable = ({
   data,
   headings,
 }: {
-  data: MenusProps[];
+  data: LinkProps[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,10 +54,8 @@ const SubMenuTable = ({
   const handleClose = () => {
     setIsOpen(false);
   };
-
   const itemsPerPage = 10; // Number of items to display per page (updated to 10)
-  const [currentPage, setCurrentPage] = useState(1);
-  // Current page number
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
 
   // Calculate total number of pages based on data length and items per page
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -86,10 +72,10 @@ const SubMenuTable = ({
   const endIndex = startIndex + itemsPerPage;
 
   // Slice data array to get items for current page
-  const currentPageData = data.slice(startIndex, endIndex);
+  const currentPageData = data?.slice(startIndex, endIndex);
 
   const handleEdit = (id: string) => {
-    router.push(`/submenu/edit?id=${id}`);
+    router.push(`/link/edit?id=${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -99,10 +85,8 @@ const SubMenuTable = ({
       return;
     }
 
-    console.log(id);
-
     axios
-      .delete("/api/submenu", {
+      .delete("/api/links", {
         params: {
           id,
         },
@@ -152,12 +136,10 @@ const SubMenuTable = ({
                   <td className="px-4 py-2 text-sm text-gray-700">
                     {row.title}
                   </td>
-                  <td className="px-4 py-2 text-sm text-gray-700">
+                  <td className="px-4 py-2 text-sm text-blue-500">
                     /{row.slug}
                   </td>
-                  <td className="px-4 py-2 text-sm font-medium text-blue-600">
-                    {row.menu.title}
-                  </td>
+
                   <td className="px-4 py-2 text-sm text-gray-700 w-fit">
                     <div className="flex items-center px-2 py-1 space-x-2 bg-green-100 rounded-3xl w-fit">
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -192,7 +174,6 @@ const SubMenuTable = ({
                       <button
                         key={`delete_${row.id}`}
                         className="flex items-center px-3 py-1 space-x-2 text-white bg-red-500 rounded-md w-fit hover:bg-red-600"
-                        // onClick={() => handleDelete(row.id)}
                         onClick={handleOpen}
                       >
                         <FiTrash2 size={16} />
@@ -292,4 +273,4 @@ const SubMenuTable = ({
   );
 };
 
-export default SubMenuTable;
+export default LinkTable;

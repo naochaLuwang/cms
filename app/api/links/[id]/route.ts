@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
-import getCurrentUser from "@/app/actions/getCurrentUser";
 
 interface IParams {
   id?: string;
@@ -8,32 +7,33 @@ interface IParams {
 
 export async function GET(request: Request, { params }: { params: IParams }) {
   const { id } = params;
-  const subsubmenu = await prisma.subsubmenu.findUnique({
+  const link = await prisma.links.findUnique({
     where: {
       id: id,
     },
   });
 
-  return NextResponse.json(subsubmenu);
+  return NextResponse.json(link);
 }
 
 export async function PUT(request: Request, { params }: { params: IParams }) {
-  const currentUser = await getCurrentUser();
-
-  if (!currentUser) {
-    return NextResponse.error();
-  }
   const { id } = params;
 
   const body = await request.json();
 
-  const { title, slug, order, status, content, pageType, submenuId } = body;
+  const { title, slug, order, status, content, pageType } = body;
 
   if (!id || typeof id !== "string") {
     throw new Error("Invalid ID");
   }
 
-  const editsubsubmenu = await prisma.subsubmenu.update({
+  // const setting = await prisma.orgsetting.findUnique({
+  //   where: {
+  //     id: id,
+  //   },
+  // });
+
+  const editlink = await prisma.links.update({
     where: {
       id: id,
     },
@@ -41,13 +41,11 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
       title,
       slug,
       order,
-      submenuId,
       status,
-      content,
       pageType,
-      userId: currentUser.id,
+      content,
     },
   });
 
-  return NextResponse.json(editsubsubmenu);
+  return NextResponse.json(editlink);
 }

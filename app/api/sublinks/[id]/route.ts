@@ -8,13 +8,13 @@ interface IParams {
 
 export async function GET(request: Request, { params }: { params: IParams }) {
   const { id } = params;
-  const menu = await prisma.submenu.findUnique({
+  const sublink = await prisma.sublinks.findUnique({
     where: {
       id: id,
     },
   });
 
-  return NextResponse.json(menu);
+  return NextResponse.json(sublink);
 }
 
 export async function PUT(request: Request, { params }: { params: IParams }) {
@@ -27,13 +27,13 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
 
   const body = await request.json();
 
-  const { title, slug, order, status, content, pageType, menuId } = body;
+  const { title, slug, order, status, content, pageType, linkId } = body;
 
   if (!id || typeof id !== "string") {
     throw new Error("Invalid ID");
   }
 
-  const editsubmenu = await prisma.submenu.update({
+  const editsublink = await prisma.sublinks.update({
     where: {
       id: id,
     },
@@ -41,7 +41,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
       title,
       slug,
       order,
-      menuId,
+      linkId,
       status,
       content,
       pageType,
@@ -49,5 +49,5 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     },
   });
 
-  return NextResponse.json(editsubmenu);
+  return NextResponse.json(editsublink);
 }

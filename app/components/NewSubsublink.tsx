@@ -5,17 +5,18 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { useState } from "react";
 
-import Heading from "../../components/Heading";
+import Heading from "@/app/components/Heading";
 
-import SmallInput from "../../components/Inputs/SmallInput";
+import SmallInput from "@/app/components/Inputs/SmallInput";
 import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
 import Select from "@/app/components/Select";
 import MyEditor from "@/app/components/Editor";
 import { useRouter } from "next/navigation";
 
-const NewSubMenu = ({ menus }: any) => {
+const NewSubsubLinks = ({ sublinks }: any) => {
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
 
   const {
@@ -30,7 +31,7 @@ const NewSubMenu = ({ menus }: any) => {
       title: "",
       slug: "",
       order: 0,
-      menuId: "",
+      sublinkId: "",
       status: "ACTIVE",
       pageType: "dynamic",
       content: "",
@@ -55,25 +56,26 @@ const NewSubMenu = ({ menus }: any) => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
+    console.log(data);
 
     axios
-      .post("/api/submenu", data)
+      .post("/api/subsublinks", data)
       .then(() => {
-        toast.success("Submenu created successfully");
+        toast.success("Sub sublink created successfully");
       })
       .catch((error) => {
-        toast.error("Error creating Submenu");
+        toast.error("Error ");
       })
       .finally(() => {
         setIsLoading(false);
-        router.push("/submenu");
+        router.push("/subsublink");
       });
   };
 
   const bodyContent = (
     <>
       <div className="flex flex-col gap-4">
-        <Heading title="Sub Menu" subtitle="Add a new sub menu" />
+        <Heading title="Sub Sublink" subtitle="Add a new Sub Sublink" />
         <SmallInput
           id="title"
           label="Title"
@@ -103,14 +105,14 @@ const NewSubMenu = ({ menus }: any) => {
         </div>
         <div className="flex flex-col">
           <h1 className="mb-2 text-neutral-600">
-            Menu <span className="text-rose-500">*</span>
+            Sub Link <span className="text-rose-500">*</span>
           </h1>
           <Select
-            id="menuId"
+            id="sublinkId"
             register={register}
             errors={errors}
-            menus={menus}
-            label="menu"
+            menus={sublinks}
+            label="sublinks"
           />
         </div>
 
@@ -191,4 +193,4 @@ const NewSubMenu = ({ menus }: any) => {
   );
 };
 
-export default NewSubMenu;
+export default NewSubsubLinks;
