@@ -67,10 +67,10 @@ const NewMenu = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Menu" />
+      <Heading title="Link" subtitle="Add a new Link" />
       <SmallInput
         id="title"
-        label="Menu Title"
+        label="Title"
         disabled={isLoading}
         register={register}
         errors={errors}

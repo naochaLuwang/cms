@@ -33,27 +33,27 @@ const Sidebar = () => {
       menus: [
         {
           label: "View Link",
-          href: "/menu",
+          href: "/link",
         },
         {
           label: "Add New Link",
-          href: "/menu/add_new_menu",
+          href: "/link/add_new_link",
         },
         {
           label: "View Sub Link",
-          href: "/submenu",
+          href: "/sublink",
         },
         {
           label: "Add New Sub Link",
-          href: "/submenu/add_new_submenu",
+          href: "/sublink/add_new_sublink",
         },
         {
           label: "View Sub Sub Link",
-          href: "/subsubmenu",
+          href: "/subsublink",
         },
         {
           label: "Add New Sub Sub Link",
-          href: "/subsubmenu/add_new_subsubmenu",
+          href: "/subsublink/add_new_subsublink",
         },
       ],
     },
@@ -130,7 +130,7 @@ const Sidebar = () => {
          h-screen "
       >
         <div className="flex items-center gap-2.5 font-medium border-b py-3 border-slate-300  mx-3">
-          <span className="text-xl whitespace-pre">Rely Edu CMS</span>
+          <span className="text-xl whitespace-pre">Rely CMS 2</span>
         </div>
 
         <div className="flex flex-col h-full">

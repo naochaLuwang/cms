@@ -13,8 +13,8 @@ const Menu = async () => {
     return (
       <Empty
         imgp="/menu.svg"
-        label="Oops! it looks like your website menu is empty."
-        href="/menu/add_new_menu"
+        label="Oops! it looks like your website Link is empty."
+        href="/link/add_new_link"
         title="Create New Menu"
       />
     );
@@ -22,9 +22,9 @@ const Menu = async () => {
   return (
     <div className="w-full h-auto">
       <PageHeader
-        title="Menu"
-        action="Add a new Menu"
-        link="/menu/add_new_menu"
+        title="Links"
+        action="Add a new Link"
+        link="/link/add_new_link"
       />
       <Table
         data={menus}

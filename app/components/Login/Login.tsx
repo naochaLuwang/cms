@@ -97,7 +97,7 @@ const LoginForm: React.FC = () => {
       {!user ? (
         <FormContainer
           disabled={isLoading}
-          title="Rely Edu CMS"
+          title="Rely CMS 2"
           actionLabel="Login"
           onSubmit={handleSubmit(onSubmit)}
           body={bodyContent}

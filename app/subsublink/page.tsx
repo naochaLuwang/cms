@@ -14,18 +14,18 @@ const SubsubMenu = async () => {
     return (
       <Empty
         imgp="/subsubmenu.svg"
-        label="Oops! it looks like your website Sub sub Menu is empty."
-        href="/subsubmenu/add_new_subsubmenu"
-        title="Create New Sub Submenu"
+        label="Oops! it looks like your website Sub sub Link is empty."
+        href="/subsublink/add_new_subsublink"
+        title="Create New Sub SubLink"
       />
     );
   }
   return (
     <div className="w-full h-auto">
       <PageHeader
-        title="Sub SubMenu"
+        title="Sub SubLinks"
         action="Add a new Sub Submenu"
-        link="/menu/add_new_subsubmenu"
+        link="/subsublink/add_new_subsublink"
       />
       <SubsubMenuTable
         data={subsubmenus}

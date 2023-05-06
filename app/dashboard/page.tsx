@@ -9,7 +9,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col w-full max-h-screen px-10 py-10">
       <Heading
-        title="Welcome to Rely Edu CMS"
+        title="Welcome to Rely CMS 2"
         subtitle={`Hello, ${session?.user?.name}`}
       />
     </div>
