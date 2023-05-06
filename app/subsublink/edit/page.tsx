@@ -1,16 +1,17 @@
-import { getSubsubMenu } from "@/app/actions/getSubsubMenu";
-import { getAllSubMenus } from "@/app/actions/getAllSubMenus";
-import EditSubSubMenu from "@/app/components/Edit/EditSubSubMenuPage";
+import { getSubsubLink } from "@/app/actions/getSubsublink";
+import { getAllSubLinks } from "@/app/actions/getAllSubLinks";
 
-const EditSubsubmenuPage = async ({ searchParams }: any) => {
-  const subsubmenus = await getSubsubMenu(searchParams.id);
-  const submenus = await getAllSubMenus();
+import EditSubSubLink from "@/app/components/Edit/EditSubSubLink";
+
+const EditSubsublinkPage = async ({ searchParams }: any) => {
+  const subsublink = await getSubsubLink(searchParams.id);
+  const sublinks = await getAllSubLinks();
 
   return (
     <>
-      <EditSubSubMenu subsubmenu={subsubmenus} submenus={submenus} />
+      <EditSubSubLink subsublink={subsublink} sublinks={sublinks} />
     </>
   );
 };
 
-export default EditSubsubmenuPage;
+export default EditSubsublinkPage;

@@ -13,7 +13,7 @@ import MyEditor from "@/app/components/Editor";
 import { useRouter } from "next/navigation";
 import Select from "../Select";
 
-const EditSubMenu = ({ submenu, menus }: any) => {
+const EditSubLink = ({ sublink, links }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -25,13 +25,13 @@ const EditSubMenu = ({ submenu, menus }: any) => {
     watch,
   } = useForm<FieldValues>({
     defaultValues: {
-      title: submenu?.title,
-      slug: submenu?.slug,
-      order: submenu?.order,
-      status: submenu?.status,
-      content: submenu?.content,
-      pageType: submenu?.pageType,
-      menuId: submenu?.menuId,
+      title: sublink?.title,
+      slug: sublink?.slug,
+      order: sublink?.order,
+      status: sublink?.status,
+      content: sublink?.content,
+      pageType: sublink?.pageType,
+      linkId: sublink?.linkId,
     },
   });
 
@@ -56,25 +56,25 @@ const EditSubMenu = ({ submenu, menus }: any) => {
     setIsLoading(true);
 
     axios
-      .put(`/api/submenu/${submenu.id}`, data)
+      .put(`/api/sublinks/${sublink.id}`, data)
       .then(() => {
-        toast.success("Submenu Updated successfully");
+        toast.success("Sublink Updated successfully");
       })
       .catch((error) => {
-        toast.error("Failed to update Menu ");
+        toast.error("Failed to update Sublink ");
       })
       .finally(() => {
         setIsLoading(false);
-        router.push("/submenu");
+        router.push("/sublink");
       });
   };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Edit Submenu" />
+      <Heading title="Edit Sub Link" />
       <SmallInput
         id="title"
-        label="Submenu Title"
+        label="Title"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -109,14 +109,14 @@ const EditSubMenu = ({ submenu, menus }: any) => {
       />
       <div className="flex flex-col">
         <h1 className="mb-2 text-neutral-600">
-          Menu <span className="text-rose-500">*</span>
+          Link <span className="text-rose-500">*</span>
         </h1>
         <Select
-          id="menuId"
+          id="linkId"
           register={register}
           errors={errors}
-          menus={menus}
-          label="menu"
+          menus={links}
+          label="Links"
         />
       </div>
 
@@ -184,4 +184,4 @@ const EditSubMenu = ({ submenu, menus }: any) => {
   );
 };
 
-export default EditSubMenu;
+export default EditSubLink;

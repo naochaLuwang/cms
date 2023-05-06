@@ -43,7 +43,7 @@ interface MenuForm {
   pageType: "dynamic" | "static";
 }
 
-interface MenuProps {
+interface LinkProps {
   id: string;
   title: string;
   slug: string;
@@ -54,7 +54,7 @@ interface MenuProps {
   content: string;
   createdAt: string;
   updatedAt: string;
-  submenus: SubMenuProps[];
+  sublinka: SubLinkProps[];
   user: User;
 }
 
@@ -68,9 +68,9 @@ interface User {
   updatedAt: string;
 }
 
-interface SubMenuProps {
+interface SubLinkProps {
   id: string;
-  menuId: string;
+  linkId: string;
   userId: string;
   title: string;
   slug: string;
@@ -80,12 +80,12 @@ interface SubMenuProps {
   pageType: "static" | "dynamic";
   createdAt: string;
   updatedAt: string;
-  Subsubmenu: SubsubmenuProps[];
+  Subsublinks: SubsubLinkProps[];
 }
 
-interface SubsubmenuProps {
+interface SubsubLinkProps {
   id: string;
-  submenuId: string;
+  sublinkId: string;
   userId: string;
   title: string;
   slug: string;

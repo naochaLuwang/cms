@@ -17,11 +17,11 @@ model User {
   updatedAt      DateTime        @updatedAt
   accounts       Account[]
   Orgsetting     Orgsetting[]
-  Menu           Menu[]
-  Submenu        Submenu[]
+  Links          Links[]
+  Sublinks       Sublinks[]
   Carousalimage  Carousalimage[]
   Albulm         Albulm[]
-  Subsubmenu     Subsubmenu[]
+  Subsublinks    Subsublinks[]
 }
 
 model Account {
@@ -43,15 +43,15 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Menu {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  title    String    @unique
+model Links {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  title    String     @unique
   slug     String
   order    Int
-  submenus Submenu[]
+  sublinks Sublinks[]
   status   String
   pageType String
-  userId   String    @db.ObjectId
+  userId   String     @db.ObjectId
   content  String
 
   createdAt DateTime @default(now())
@@ -59,9 +59,9 @@ model Menu {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Submenu {
+model Sublinks {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  menuId   String @db.ObjectId
+  linkId   String @db.ObjectId
   userId   String @db.ObjectId
   title    String @unique
   slug     String
@@ -70,16 +70,16 @@ model Submenu {
   content  String
   pageType String
 
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  menu       Menu         @relation(fields: [menuId], references: [id], onDelete: Cascade)
-  Subsubmenu Subsubmenu[]
-  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  link        Links         @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  Subsublinks Subsublinks[]
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Subsubmenu {
+model Subsublinks {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
-  submenuId String @db.ObjectId
+  sublinkId String @db.ObjectId
   userId    String @db.ObjectId
   title     String @unique
   slug      String
@@ -90,7 +90,7 @@ model Subsubmenu {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  subMenu   Submenu  @relation(fields: [submenuId], references: [id], onDelete: Cascade)
+  subLinks  Sublinks @relation(fields: [sublinkId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

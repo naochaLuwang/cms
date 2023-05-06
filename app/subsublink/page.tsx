@@ -1,4 +1,4 @@
-import { getAllSubsubMenus } from "../actions/getAllSubsubmenu";
+import { getAllSubsublinks } from "../actions/getAllSubsublinks";
 import Empty from "../components/Empty";
 
 import PageHeader from "../components/PageHeader";
@@ -7,10 +7,10 @@ import SubsubMenuTable from "../components/Table/Subsubmenutable";
 
 export const revalidate = 0;
 
-const SubsubMenu = async () => {
-  const subsubmenus = await getAllSubsubMenus();
+const SubsubLinkPage = async () => {
+  const subsublinks = await getAllSubsublinks();
 
-  if (subsubmenus.length === 0) {
+  if (subsublinks.length === 0) {
     return (
       <Empty
         imgp="/subsubmenu.svg"
@@ -24,16 +24,16 @@ const SubsubMenu = async () => {
     <div className="w-full h-auto">
       <PageHeader
         title="Sub SubLinks"
-        action="Add a new Sub Submenu"
+        action="Add new Sub Sublink"
         link="/subsublink/add_new_subsublink"
       />
       <SubsubMenuTable
-        data={subsubmenus}
+        data={subsublinks}
         headings={[
           "Serial No",
           "Title",
           "Slug",
-          "Parent Submenu",
+          "Parent Sublink",
           "Status",
 
           "Created By",
@@ -45,4 +45,4 @@ const SubsubMenu = async () => {
   );
 };
 
-export default SubsubMenu;
+export default SubsubLinkPage;

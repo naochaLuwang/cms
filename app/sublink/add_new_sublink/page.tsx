@@ -1,20 +1,15 @@
-import NewSubMenu from "../../components/Submenu/New";
+import { getAllLinks } from "@/app/actions/getAllLinks";
 
-async function getMenus() {
-  const res = await fetch(`${process.env.API_URL}/api/menu`, {
-    cache: "no-store",
-  });
-  return res.json();
-}
+import NewSubLink from "@/app/components/Submenu/NewSubLink";
 
-const NewSubMenupage = async () => {
-  const menus = await getMenus();
+const NewSubLinkpage = async () => {
+  const links = await getAllLinks();
 
   return (
     <div className="w-full h-auto">
-      <NewSubMenu menus={menus} />
+      <NewSubLink links={links} />
     </div>
   );
 };
 
-export default NewSubMenupage;
+export default NewSubLinkpage;

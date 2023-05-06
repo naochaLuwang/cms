@@ -13,11 +13,7 @@ import MyEditor from "@/app/components/Editor";
 import { useRouter } from "next/navigation";
 import Select from "../Select";
 
-interface EditMenuProps {
-  menu: MenuProps;
-}
-
-const EditMenu: React.FC<EditMenuProps> = ({ menu }) => {
+const EditSubSubLink = ({ subsublink, sublinks }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -29,17 +25,19 @@ const EditMenu: React.FC<EditMenuProps> = ({ menu }) => {
     watch,
   } = useForm<FieldValues>({
     defaultValues: {
-      title: menu?.title,
-      slug: menu?.slug,
-      order: menu?.order,
-      status: menu?.status,
-      content: menu?.content,
-      pageType: menu?.pageType,
+      title: subsublink?.title,
+      slug: subsublink?.slug,
+      order: subsublink?.order,
+      status: subsublink?.status,
+      content: subsublink?.content,
+      pageType: subsublink?.pageType,
+      sublinkId: subsublink?.sublinkId,
     },
   });
 
-  const handleEditorChange = (value: string) => {
+  const handleEditorChange = (value: any) => {
     setValue("content", value);
+    console.log(value);
   };
 
   const editorContent = watch("content");
@@ -48,34 +46,35 @@ const EditMenu: React.FC<EditMenuProps> = ({ menu }) => {
   const pageType = watch("pageType");
 
   const generateSlug = () => {
+    // Generate slug from username
     const slug = title.toLowerCase().replace(/\s+/g, "_");
-
+    // Set the generated slug to the slug field in the form
     setValue("slug", slug);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
     axios
-      .put(`/api/menu/${menu.id}`, data)
+      .put(`/api/subsublinks/${subsublink.id}`, data)
       .then(() => {
-        toast.success("Menu Updated successfully");
+        toast.success("Sub sublink Updated successfully");
       })
       .catch((error) => {
-        toast.error("Failed to update Menu ");
+        toast.error("Failed to update Sub sublink ");
       })
       .finally(() => {
         setIsLoading(false);
-        router.push("/menu");
+        router.push("/subsublink");
       });
   };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Edit Menu" />
+      <Heading title="Edit Sub Sublink" />
       <SmallInput
         id="title"
-        label="Menu Title"
+        label="Sub submenu Title"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -108,6 +107,18 @@ const EditMenu: React.FC<EditMenuProps> = ({ menu }) => {
         errors={errors}
         isNumber={true}
       />
+      <div className="flex flex-col">
+        <h1 className="mb-2 text-neutral-600">
+          Sub Link <span className="text-rose-500">*</span>
+        </h1>
+        <Select
+          id="sublinkId"
+          register={register}
+          errors={errors}
+          menus={sublinks}
+          label="Sublinks"
+        />
+      </div>
 
       <div className="flex flex-col">
         <h1 className="mb-2 text-neutral-600">
@@ -173,4 +184,4 @@ const EditMenu: React.FC<EditMenuProps> = ({ menu }) => {
   );
 };
 
-export default EditMenu;
+export default EditSubSubLink;

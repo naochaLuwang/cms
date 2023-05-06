@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 
   const { title, slug, order, status, pageType, content } = body;
 
-  const menu = await prisma.menu.create({
+  const menu = await prisma.links.create({
     data: {
       title,
       slug,
@@ -55,14 +55,14 @@ export async function GET(request: Request) {
   //   );
   // }
 
-  const menus = await prisma.menu.findMany({
+  const menus = await prisma.links.findMany({
     where: {
       status: "ACTIVE",
     },
     include: {
-      submenus: {
+      sublinks: {
         include: {
-          Subsubmenu: true,
+          Subsublinks: true,
         },
       },
 
@@ -81,7 +81,7 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ message: "ID cannot be empty" });
   }
 
-  const deleteUser = await prisma.menu.delete({
+  const deleteUser = await prisma.links.delete({
     where: {
       id: id,
     },

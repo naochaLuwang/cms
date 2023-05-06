@@ -1,13 +1,12 @@
-import { getMenu } from "@/app/actions/getMenu";
-import EditMenu from "../../components/Edit/EditMenu";
+import { getLink } from "@/app/actions/getLink";
+import EditLink from "../../components/Edit/EditLink";
 
 const EditPage = async ({ searchParams }: any) => {
-  const menus = await getMenu(searchParams.id);
-  console.log(menus);
+  const link = await getLink(searchParams.id);
 
   return (
     <>
-      <EditMenu menu={menus} />
+      <EditLink link={link} />
     </>
   );
 };

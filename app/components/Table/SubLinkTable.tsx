@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
-interface MenusProps {
+interface SubLinkProps {
   id: string;
   title: string;
   slug: string;
@@ -14,7 +14,7 @@ interface MenusProps {
   status: boolean;
   createdAt: string;
   updatedAt: string;
-  submenus: SubmenuProps[];
+  sublinks: SubLinkProps[];
   user: {
     id: string;
     email: string;
@@ -24,12 +24,24 @@ interface MenusProps {
     createdAt: string;
     updatedAt: string;
   };
+  link: {
+    id: string;
+    title: string;
+    slug: string;
+    order: number;
+    status: string;
+    pageType: string;
+    userId: string;
+    content: any;
+    createdAt: string;
+    updatedAt: string;
+  };
   actions?: React.ReactNode;
 }
 
-interface SubmenuProps {
+interface SubLinkProps {
   id: string;
-  menuId: string;
+  linkId: string;
   title: string;
   slug: string;
   order: number;
@@ -38,11 +50,11 @@ interface SubmenuProps {
   updatedAt: string;
 }
 
-const Table = ({
+const SubLinkTable = ({
   data,
   headings,
 }: {
-  data: MenusProps[];
+  data: SubLinkProps[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,8 +66,10 @@ const Table = ({
   const handleClose = () => {
     setIsOpen(false);
   };
+
   const itemsPerPage = 10; // Number of items to display per page (updated to 10)
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const [currentPage, setCurrentPage] = useState(1);
+  // Current page number
 
   // Calculate total number of pages based on data length and items per page
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -75,7 +89,7 @@ const Table = ({
   const currentPageData = data.slice(startIndex, endIndex);
 
   const handleEdit = (id: string) => {
-    router.push(`/menu/edit?id=${id}`);
+    router.push(`/sublink/edit?id=${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -85,8 +99,10 @@ const Table = ({
       return;
     }
 
+    console.log(id);
+
     axios
-      .delete("/api/menu", {
+      .delete("/api/submenu", {
         params: {
           id,
         },
@@ -136,10 +152,12 @@ const Table = ({
                   <td className="px-4 py-2 text-sm text-gray-700">
                     {row.title}
                   </td>
-                  <td className="px-4 py-2 text-sm text-blue-500">
+                  <td className="px-4 py-2 text-sm text-gray-700">
                     /{row.slug}
                   </td>
-
+                  <td className="px-4 py-2 text-sm font-medium text-blue-600">
+                    {row.link.title}
+                  </td>
                   <td className="px-4 py-2 text-sm text-gray-700 w-fit">
                     <div className="flex items-center px-2 py-1 space-x-2 bg-green-100 rounded-3xl w-fit">
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -174,6 +192,7 @@ const Table = ({
                       <button
                         key={`delete_${row.id}`}
                         className="flex items-center px-3 py-1 space-x-2 text-white bg-red-500 rounded-md w-fit hover:bg-red-600"
+                        // onClick={() => handleDelete(row.id)}
                         onClick={handleOpen}
                       >
                         <FiTrash2 size={16} />
@@ -273,4 +292,4 @@ const Table = ({
   );
 };
 
-export default Table;
+export default SubLinkTable;

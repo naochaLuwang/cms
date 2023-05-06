@@ -1,13 +1,13 @@
-import { getAllSubMenus } from "../actions/getAllSubMenus";
+import { getAllSubLinks } from "../actions/getAllSubLinks";
 import Empty from "../components/Empty";
 
 import PageHeader from "../components/PageHeader";
-import SubMenuTable from "../components/Table/SubMenuTable";
+import SubLinkTable from "../components/Table/SubLinkTable";
 
-const SubMenu = async () => {
-  const submenus = await getAllSubMenus();
+const SubLinkPage = async () => {
+  const sublinks = await getAllSubLinks();
 
-  if (submenus.length === 0) {
+  if (sublinks.length === 0) {
     return (
       <Empty
         imgp="/subsubmenu.svg"
@@ -21,16 +21,16 @@ const SubMenu = async () => {
     <div className="w-full h-auto">
       <PageHeader
         title="Sub Links"
-        action="Add a new Sub Link"
+        action="Add New Sub Link"
         link="/sublink/add_new_sublink"
       />
-      <SubMenuTable
-        data={submenus}
+      <SubLinkTable
+        data={sublinks}
         headings={[
           "Serial No",
           "Title",
           "Slug",
-          "Parent Menu",
+          "Parent Link",
           "Status",
 
           "Created By",
@@ -42,6 +42,6 @@ const SubMenu = async () => {
   );
 };
 
-export default SubMenu;
+export default SubLinkPage;
 
 export const revalidate = 0;

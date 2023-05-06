@@ -52,16 +52,16 @@ const NewMenu = () => {
     setIsLoading(true);
 
     axios
-      .post("/api/menu", data)
+      .post("/api/links", data)
       .then(() => {
-        toast.success("Menu created successfully");
+        toast.success("Link created successfully");
       })
       .catch((error) => {
         toast.error(error);
       })
       .finally(() => {
         setIsLoading(false);
-        router.push("/menu");
+        router.push("/link");
       });
   };
 

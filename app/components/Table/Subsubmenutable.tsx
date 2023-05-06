@@ -14,7 +14,7 @@ interface MenusProps {
   status: boolean;
   createdAt: string;
   updatedAt: string;
-  submenus: SubmenuProps[];
+  sublinks: SubmenuProps[];
   user: {
     id: string;
     email: string;
@@ -24,7 +24,7 @@ interface MenusProps {
     createdAt: string;
     updatedAt: string;
   };
-  subMenu: {
+  subLinks: {
     id: string;
     title: string;
     slug: string;
@@ -41,7 +41,7 @@ interface MenusProps {
 
 interface SubmenuProps {
   id: string;
-  menuId: string;
+  linkId: string;
   title: string;
   slug: string;
   order: number;
@@ -50,7 +50,7 @@ interface SubmenuProps {
   updatedAt: string;
 }
 
-const SubsubMenuTable = ({
+const SubsubLinkTable = ({
   data,
   headings,
 }: {
@@ -87,7 +87,7 @@ const SubsubMenuTable = ({
   const currentPageData = data.slice(startIndex, endIndex);
 
   const handleEdit = (id: string) => {
-    router.push(`/subsubmenu/edit?id=${id}`);
+    router.push(`/subsublink/edit?id=${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -100,7 +100,7 @@ const SubsubMenuTable = ({
     console.log(id);
 
     axios
-      .delete("/api/subsubmenu", {
+      .delete("/api/subsublinks", {
         params: {
           id,
         },
@@ -154,7 +154,7 @@ const SubsubMenuTable = ({
                     /{row.slug}
                   </td>
                   <td className="px-4 py-2 text-sm text-blue-600">
-                    {row.subMenu.title}
+                    {row.subLinks.title}
                   </td>
                   <td className="px-4 py-2 text-sm text-gray-700 w-fit">
                     <div className="flex items-center px-2 py-1 space-x-2 bg-green-100 rounded-3xl w-fit">
@@ -290,4 +290,4 @@ const SubsubMenuTable = ({
   );
 };
 
-export default SubsubMenuTable;
+export default SubsubLinkTable;
