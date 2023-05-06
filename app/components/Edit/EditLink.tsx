@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import Select from "../Select";
 
 interface EditLinkProps {
-  link: MenuProps;
+  link: LinkProps;
 }
 
 const EditLink: React.FC<EditLinkProps> = ({ link }) => {
