@@ -40,7 +40,7 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ message: "ID cannot be empty" });
   }
 
-  const deleteUser = await prisma.menu.delete({
+  const deleteUser = await prisma.department.delete({
     where: {
       id: id,
     },
