@@ -32,27 +32,27 @@ const Sidebar = () => {
       //   menus: ["auth", "app settings", "stroage", "hosting"],
       menus: [
         {
-          label: "View Menu",
+          label: "View Link",
           href: "/menu",
         },
         {
-          label: "Add New Menu",
+          label: "Add New Link",
           href: "/menu/add_new_menu",
         },
         {
-          label: "View Submenu",
+          label: "View Sub Link",
           href: "/submenu",
         },
         {
-          label: "Add New Submenu",
+          label: "Add New Sub Link",
           href: "/submenu/add_new_submenu",
         },
         {
-          label: "View Sub Submenu",
+          label: "View Sub Sub Link",
           href: "/subsubmenu",
         },
         {
-          label: "Add New Sub Submenu",
+          label: "Add New Sub Sub Link",
           href: "/subsubmenu/add_new_subsubmenu",
         },
       ],
@@ -67,7 +67,7 @@ const Sidebar = () => {
           href: "/carousalimage",
         },
         {
-          label: "Albulm",
+          label: "Album",
           href: "/albulm",
         },
       ],
