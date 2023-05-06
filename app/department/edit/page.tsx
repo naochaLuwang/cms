@@ -1,5 +1,3 @@
-import { getMenu } from "@/app/actions/getMenu";
-
 import { getDepartment } from "@/app/actions/getDepartment";
 import EditDepartment from "@/app/components/Edit/EditDepartment";
 
