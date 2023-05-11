@@ -4,47 +4,44 @@ import Heading from "../components/Heading";
 import AlbulmCard from "../components/albulm/AlbulmCard";
 import Link from "next/link";
 
-interface AlbulmProps {
-  id: string;
-  title: string;
-  thumbnailImage: string;
-  images: ImageProps[];
-}
+const AlbumPage = async () => {
+  const albums: AlbumProps[] = await getAllAlbulms();
 
-interface ImageProps {
-  id: string;
-  albulmId: string;
-  imageUrl: string;
-}
-
-const AlbulmPage = async () => {
-  const albulms: AlbulmProps[] = await getAllAlbulms();
-
-  if (albulms.length === 0) {
+  if (albums.length === 0) {
     return (
       <Empty
         imgp="/albulm.svg"
-        label="Oops! it looks like your albulm is empty."
-        href="/albulm/create"
-        title="Create New Albulm"
+        label="Oops! it looks like your album is empty."
+        href="/album/create"
+        title="Create New Album"
       />
     );
   }
 
   return (
     <div className="flex flex-col w-full max-h-screen px-10 py-10">
-      <Heading title="Albulm" />
-      {albulms.map((albulm) => (
-        <Link href={`/albulm/edit?id=${albulm.id}`} key={albulm.id}>
-          <AlbulmCard
-            image={albulm.thumbnailImage}
-            title={albulm.title}
-            count={albulm.images.length}
-          />
+      <div className="flex items-center justify-between mb-6">
+        <Heading title="Albums" />
+        <Link href="/albulm/create">
+          <div className="px-3 py-2 text-base text-white bg-blue-700 rounded-md w-fit ">
+            Create new Album
+          </div>
         </Link>
-      ))}
+      </div>
+
+      <div className="grid grid-cols-4">
+        {albums.map((album) => (
+          <Link href={`/album/edit?id=${album.id}`} key={album.id}>
+            <AlbulmCard
+              image={album.thumbnailImage}
+              title={album.title}
+              count={album.images.length}
+            />
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default AlbulmPage;
+export default AlbumPage;

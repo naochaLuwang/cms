@@ -1,14 +1,22 @@
 import { getAlbulm } from "@/app/actions/getAlbulm";
 import EditAlbulm from "../../components/albulm/EditAlbulm";
 
-const EditAlbulmPage = async ({ searchParams }: any) => {
-  const albulm = await getAlbulm(searchParams.id);
+interface SearchParams {
+  id: string;
+}
+
+const EditAlbumPage = async ({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) => {
+  const album: AlbumProps = await getAlbulm(searchParams.id);
 
   return (
     <>
-      <EditAlbulm albulm={albulm} />
+      <EditAlbulm albulm={album} />
     </>
   );
 };
 
-export default EditAlbulmPage;
+export default EditAlbumPage;

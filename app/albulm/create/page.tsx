@@ -36,13 +36,13 @@ const CreateAlbulmPage = () => {
 
   const thumbnailImage = watch("thumbnailImage");
 
-  const setCustomValue = (id: string, value: any) => {
-    setValue(id, value, {
-      shouldDirty: true,
-      shouldTouch: true,
-      shouldValidate: true,
-    });
-  };
+  // const setCustomValue = (id: string, value: any) => {
+  //   setValue(id, value, {
+  //     shouldDirty: true,
+  //     shouldTouch: true,
+  //     shouldValidate: true,
+  //   });
+  // };
 
   const onSubmit: SubmitHandler<FieldValues> = (datas) => {
     setIsLoading(true);

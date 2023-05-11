@@ -4,10 +4,9 @@ import LinkTable from "../components/Table/LinkTable";
 
 import { getAllLinks } from "@/app/actions/getAllLinks";
 
-export  const  metadata = {
-    title:"Link | Rely CMS 2"
-
-}
+export const metadata = {
+  title: "Link | Rely CMS 2",
+};
 
 export const revalidate = 0;
 

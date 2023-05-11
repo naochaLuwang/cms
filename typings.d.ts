@@ -54,7 +54,7 @@ interface LinkProps {
   content: string;
   createdAt: string;
   updatedAt: string;
-  sublinka: SubLinkProps[];
+  sublinks: SubLinkProps[];
   user: User;
 }
 
@@ -81,6 +81,8 @@ interface SubLinkProps {
   createdAt: string;
   updatedAt: string;
   Subsublinks: SubsubLinkProps[];
+  user: User;
+  link: LinkProps;
 }
 
 interface SubsubLinkProps {
@@ -95,6 +97,8 @@ interface SubsubLinkProps {
   pageType: "static" | "dynamic";
   createdAt: string;
   updatedAt: string;
+  user: User;
+  subLinks: SubLinkProps;
 }
 
 interface DepartmentProps {
@@ -102,7 +106,7 @@ interface DepartmentProps {
   departmentName: string;
   departmentCode: string;
   order: number;
-  status: string;
+  status: "ACTIVE" | "INACTIVE";
   createdAt: string;
   updatedAt: string;
   createdBy: string;
@@ -136,11 +140,29 @@ interface DesignationProps {
   id: string;
   designationName: string;
   designationCode: string;
-  status: string;
+  status: "ACTIVE" | "INACTIVE";
   createdAt: string;
   updatedAt: string;
   createdBy: string;
   updatedBy: string;
+}
+
+interface AlbumProps {
+  id: string;
+  userId: string;
+  title: string;
+  thumbnailImage: string;
+  status: "ACTIVE" | "INACTIVE";
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+  images: ImageProps[];
+}
+
+interface ImageProps {
+  id: string;
+  albulmId: string;
+  imageUrl: string;
 }
 
 interface carousalimageProps {
@@ -152,4 +174,5 @@ interface carousalimageProps {
   order: number;
   createdAt: string;
   updatedAt: string;
+  user: User;
 }

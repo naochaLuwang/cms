@@ -11,16 +11,17 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import ImageUpload from "../components/Inputs/ImageUpload";
 import { useRouter } from "next/navigation";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
 
 const fetcher = (...args: [RequestInfo, RequestInit?]) =>
-  fetch(...args).then((res) => res.json());
+  fetch(...args).then((res:Response) => res.json());
 const OrganizationSettingPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { data, error } = useSWR("/api/orgsetting", fetcher, {
     refreshInterval: 1000,
   });
-  const router = useRouter();
+  const router:AppRouterInstance = useRouter();
 
   const {
     register,
@@ -68,7 +69,7 @@ const OrganizationSettingPage = () => {
     // setValue("logoUrl", data[0]?.logoUrl);
   }
 
-  const onSubmit: SubmitHandler<FieldValues> = (datas) => {
+  const onSubmit: SubmitHandler<FieldValues> = (datas:FieldValues):void => {
     setIsLoading(true);
 
     if (data && data?.length > 0) {
@@ -88,7 +89,7 @@ const OrganizationSettingPage = () => {
       axios
         .post("/api/orgsetting", datas)
         .then(() => {
-          toast.success("Sucessfully registered");
+          toast.success("Organization setting created successfully");
         })
         .catch((error) => {
           toast.error("Error ");
@@ -99,7 +100,7 @@ const OrganizationSettingPage = () => {
     }
   };
 
-  const bodyContent = (
+  const bodyContent: JSX.Element = (
     <div className="flex flex-col gap-4">
       <Heading title="Organization Setting" />
 
@@ -194,7 +195,7 @@ const OrganizationSettingPage = () => {
         <div className="flex flex-col w-full h-auto gap-2">
           <h1 className="text-neutral-500">Organization Logo</h1>
           <ImageUpload
-            onChange={(value) => setValue("logoUrl", value)}
+            onChange={(value:string) => setValue("logoUrl", value)}
             value={data?.length > 0 ? data[0].logoUrl : logoUrl}
           />
         </div>

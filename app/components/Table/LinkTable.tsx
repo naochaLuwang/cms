@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
-interface LinkProps {
+interface LinkProp {
   id: string;
   title: string;
   slug: string;
