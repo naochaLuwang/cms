@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import Heading from "../components/Heading";
-import Tiptap from "../components/TipTap";
+// import Tiptap from "../components/TipTap";
 
 const Dashboard = () => {
   const { data: session } = useSession();
@@ -13,7 +13,7 @@ const Dashboard = () => {
         title="Welcome to Rely CMS 2"
         subtitle={`Hello, ${session?.user?.name}`}
       />
-      <Tiptap />
+      {/* <Tiptap /> */}
     </div>
   );
 };
