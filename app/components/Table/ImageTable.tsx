@@ -7,34 +7,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
 
-interface ImageProps {
-  id: string;
-  title: string;
-
-  order: number;
-  imgUrl: string;
-  status: boolean;
-  createdAt: string;
-  updatedAt: string;
-
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    emailVerified: any;
-    hashedPassword: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-
-  actions?: React.ReactNode;
-}
-
 const ImageTable = ({
   data,
   headings,
 }: {
-  data: ImageProps[];
+  data: carousalimageProps[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);

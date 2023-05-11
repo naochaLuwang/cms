@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
-interface SubLinkProps {
+interface SubLinkTableProps {
   id: string;
   title: string;
   slug: string;
@@ -37,17 +37,6 @@ interface SubLinkProps {
     updatedAt: string;
   };
   actions?: React.ReactNode;
-}
-
-interface SubLinkProps {
-  id: string;
-  linkId: string;
-  title: string;
-  slug: string;
-  order: number;
-  status: boolean;
-  createdAt: string;
-  updatedAt: string;
 }
 
 const SubLinkTable = ({
