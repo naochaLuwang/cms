@@ -12,3 +12,38 @@
 }
 }
 
+/* Custom bullet point icon */
+.bullet-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  /* Adjust the spacing as needed */
+  width: 16px;
+  /* Adjust the size as needed */
+  height: 16px;
+  /* Adjust the size as needed */
+}
+
+/* Hide default bullet point */
+.ql-custom-bullet .ql-editor li {
+  list-style-type: none;
+}
+
+/* Custom bullet point indentation */
+.ql-custom-bullet .ql-editor li:before {
+  content: none;
+  /* Hide the default bullet point */
+}
+
+/* Apply padding/margin to the custom bullet point icon */
+.ql-custom-bullet .ql-editor li .bullet-icon {
+  margin-right: 8px;
+  /* Adjust the spacing as needed */
+}
+
+/* Optional: Adjust the vertical alignment of the custom bullet point */
+.ql-custom-bullet .ql-editor li .bullet-icon svg {
+  vertical-align: middle;
+}
+

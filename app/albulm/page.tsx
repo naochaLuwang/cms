@@ -31,7 +31,7 @@ const AlbumPage = async () => {
 
       <div className="grid grid-cols-4">
         {albums.map((album) => (
-          <Link href={`/album/edit?id=${album.id}`} key={album.id}>
+          <Link href={`/albulm/edit?id=${album.id}`} key={album.id}>
             <AlbulmCard
               image={album.thumbnailImage}
               title={album.title}

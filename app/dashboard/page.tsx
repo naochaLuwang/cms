@@ -1,19 +1,19 @@
-"use client";
 import { useSession } from "next-auth/react";
 import Heading from "../components/Heading";
-import Tiptap from "../components/TipTap";
+import { getAllSubLinks } from "../actions/getAllSubLinks";
 
-const Dashboard = () => {
-  const { data: session } = useSession();
-  console.log(session?.user);
+const Dashboard = async () => {
+  // const { data: session } = useSession();
+  // console.log(session?.user);
+
+  const subLinks = await getAllSubLinks();
 
   return (
     <div className="flex flex-col w-full max-h-screen px-10 py-10">
       <Heading
         title="Welcome to Rely CMS 2"
-        subtitle={`Hello, ${session?.user?.name}`}
+        // subtitle={`Hello, ${session?.user?.name}`}
       />
-      <Tiptap />
     </div>
   );
 };
