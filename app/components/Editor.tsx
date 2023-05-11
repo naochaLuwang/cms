@@ -37,6 +37,9 @@ const formats = [
   "blockquote",
   "list",
   "bullet",
+
+  "color",
+  "background",
   "indent",
   "link",
   "image",
