@@ -1,27 +1,3 @@
-interface DepartmentProps {
-  id: string;
-  departmentName: string;
-  departmentCode: string;
-  order: number;
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string;
-  updatedBy: string;
-}
-
-interface DesignationProps {
-  id: string;
-  designationName: string;
-  designationCode: string;
-
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string;
-  updatedBy: string;
-}
-
 interface SelectProps {
   id: string;
 
