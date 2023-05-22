@@ -53,6 +53,7 @@ model Links {
   pageType String
   userId   String     @db.ObjectId
   content  String
+  isMulti  String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -60,10 +61,11 @@ model Links {
 }
 
 model Sublinks {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  linkId   String @db.ObjectId
-  userId   String @db.ObjectId
-  title    String @unique
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  linkId   String  @db.ObjectId
+  userId   String  @db.ObjectId
+  title    String  @unique
+  subtitle String?
   slug     String
   order    Int
   status   String

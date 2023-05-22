@@ -19,8 +19,6 @@ const NewMenu = () => {
 
   const { data: session } = useSession();
 
-  console.log(session?.user.accessToken);
-
   const {
     register,
     handleSubmit,
@@ -34,6 +32,7 @@ const NewMenu = () => {
       order: 0,
       status: "ACTIVE",
       content: "",
+      isMulti: "NO",
       pageType: "dynamic",
     },
   });
@@ -125,6 +124,21 @@ const NewMenu = () => {
           menus={[
             { id: "ACTIVE", title: "ACTIVE" },
             { id: "INACTIVE", title: "INACTIVE" },
+          ]}
+        />
+      </div>
+      <div className="flex flex-col">
+        <h1 className="mb-2 text-neutral-600">
+          Is Multi <span className="text-rose-500">*</span>
+        </h1>
+        <Select
+          id="isMulti"
+          register={register}
+          errors={errors}
+          label="status"
+          menus={[
+            { id: "YES", title: "YES" },
+            { id: "NO", title: "NO" },
           ]}
         />
       </div>

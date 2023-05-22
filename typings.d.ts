@@ -2,7 +2,7 @@ interface DepartmentProps {
   id: string;
   departmentName: string;
   departmentCode: string;
-  order: 1;
+  order: number;
   status: string;
   createdAt: string;
   updatedAt: string;
@@ -40,6 +40,7 @@ interface MenuForm {
   order: number;
   status: "ACTIVE" | "INACTIVE";
   content: string;
+  isMulti: "YES" | "NO";
   pageType: "dynamic" | "static";
 }
 
@@ -73,6 +74,7 @@ interface SubLinkProps {
   linkId: string;
   userId: string;
   title: string;
+  subtitle: string;
   slug: string;
   order: number;
   status: "ACTIVE" | "INACTIVE";

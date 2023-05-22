@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   }
   const body = await request.json();
 
-  const { title, slug, order, status, pageType, content } = body;
+  const { title, slug, order, status, pageType, content, isMulti } = body;
 
   const menu = await prisma.links.create({
     data: {
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
       order,
       status,
       pageType,
+      isMulti,
       userId: currentUser.id,
       content,
     },
@@ -43,18 +44,18 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-  // const accessToken = request.headers.get("authorization");
-  //
-  // if (!accessToken || !verifyJwt(accessToken)) {
-  //   return new Response(
-  //     JSON.stringify({
-  //       error: "unauthorized",
-  //     }),
-  //     {
-  //       status: 401,
-  //     }
-  //   );
-  // }
+  const accessToken = request.headers.get("authorization");
+
+  if (!accessToken || !verifyJwt(accessToken)) {
+    return new Response(
+      JSON.stringify({
+        error: "Unauthorized",
+      }),
+      {
+        status: 401,
+      }
+    );
+  }
 
   const menus = await prisma.links.findMany({
     where: {

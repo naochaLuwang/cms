@@ -2,6 +2,7 @@ import prisma from "@/app/libs/prismadb";
 
 import { NextResponse } from "next/server";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import { verifyJwt } from "@/app/libs/jwt";
 
 export async function POST(request: Request) {
   const currentUser = await getCurrentUser();
@@ -27,11 +28,24 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-  const orgsetting = await prisma.albulm.findMany({
+  const accessToken = request.headers.get("authorization");
+
+  if (!accessToken || !verifyJwt(accessToken)) {
+    return new Response(
+      JSON.stringify({
+        error: "Unauthorized",
+      }),
+      {
+        status: 401,
+      }
+    );
+  }
+
+  const album = await prisma.albulm.findMany({
     include: {
       images: true,
     },
   });
 
-  return NextResponse.json(orgsetting);
+  return NextResponse.json(album);
 }

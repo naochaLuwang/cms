@@ -27,12 +27,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     throw new Error("Invalid ID");
   }
 
-  // const setting = await prisma.orgsetting.findUnique({
-  //   where: {
-  //     id: id,
-  //   },
-  // });
-
   const editlink = await prisma.links.update({
     where: {
       id: id,

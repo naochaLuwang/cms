@@ -83,6 +83,14 @@ const NewSubLink = ({ links }: any) => {
           required
           isNumber={false}
         />
+        <SmallInput
+          id="subtitle"
+          label="Subtitle"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          isNumber={false}
+        />
         <div className="flex items-end gap-4">
           <SmallInput
             id="slug"

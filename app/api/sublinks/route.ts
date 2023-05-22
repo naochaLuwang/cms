@@ -10,11 +10,13 @@ export async function POST(request: Request) {
   }
   const body = await request.json();
 
-  const { title, slug, linkId, order, status, content, pageType } = body;
+  const { title, slug, linkId, order, status, content, pageType, subtitle } =
+    body;
 
   const newSublink = await prisma.sublinks.create({
     data: {
       title,
+      subtitle,
       slug,
       order,
       linkId,
