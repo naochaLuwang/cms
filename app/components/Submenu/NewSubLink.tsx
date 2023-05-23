@@ -29,6 +29,7 @@ const NewSubLink = ({ links }: any) => {
     defaultValues: {
       title: "",
       slug: "",
+      subtitle: "",
       order: 0,
       linkId: "",
       status: "ACTIVE",

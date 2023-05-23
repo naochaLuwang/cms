@@ -195,3 +195,18 @@ model People {
   createdBy     String
   updatedBy     String
 }
+
+model Programme {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug          String
+  programmeName String
+  programmeCode String
+  programmeType String
+  image         String
+  order         Int
+  status        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  createdBy     String
+  updatedBy     String
+}
