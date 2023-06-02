@@ -10,40 +10,26 @@ export async function POST(request: Request) {
   }
   const body = await request.json();
 
-  const {
-    programmeName,
-    programmeCode,
-    programmeType,
-    slug,
-    programmeDuration,
-    minQualification,
-    order,
-    status,
-  } = body;
+  const { name, sub, testimony, order, status, imageUrl } = body;
 
-  const menu = await prisma.programme.create({
+  const newTestimony = await prisma.testimonial.create({
     data: {
-      programmeName,
-      programmeCode,
-      programmeType,
-      slug,
-      programmeDuration,
-      minQualification,
+      name,
+      sub,
+      testimony,
       order,
       status,
-
-      createdBy: currentUser.id,
-      updatedBy: currentUser.id,
+      imageUrl,
     },
   });
 
-  return NextResponse.json(menu);
+  return NextResponse.json(newTestimony);
 }
 
 export async function GET(request: Request) {
-  const programme = await prisma.programme.findMany();
+  const testimonial = await prisma.testimonial.findMany({});
 
-  return NextResponse.json(programme);
+  return NextResponse.json(testimonial);
 }
 
 export async function DELETE(request: Request) {
@@ -55,17 +41,17 @@ export async function DELETE(request: Request) {
   }
 
   try {
-    await prisma.programme.delete({
+    await prisma.testimonial.delete({
       where: {
         id: id,
       },
     });
 
-    return NextResponse.json({ message: "Programme deleted successfully" });
+    return NextResponse.json({ message: "Testimonial deleted successfully" });
   } catch (error) {
-    console.error("Error deleting program:", error);
+    console.error("Error deleting testimonial:", error);
     return NextResponse.json(
-      { message: "Failed to delete programme" },
+      { message: "Failed to delete testimonial" },
       { status: 500 }
     );
   }

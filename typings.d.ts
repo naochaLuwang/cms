@@ -154,3 +154,31 @@ interface carousalimageProps {
   updatedAt: string;
   user: User;
 }
+
+interface ProgrammeProps {
+  id: string;
+  slug: string;
+  programmeName: string;
+  programmeCode: string;
+  programmeType: string;
+  programmeDuration: string;
+  minQualification: string;
+  order: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+}
+
+interface TestimonialProps {
+  id: string;
+  name: string;
+  sub: string;
+  imageUrl: string;
+  testimony: string;
+  status: "ACTIVE" | "INACTIVE";
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+}

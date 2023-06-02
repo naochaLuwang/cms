@@ -6,39 +6,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
-// interface MenusProps {
-//   id: string;
-//   title: string;
-//   slug: string;
-//   order: number;
-//   status: boolean;
-//   createdAt: string;
-//   updatedAt: string;
-//   sublinks: SubmenuProps[];
-//   user: {
-//     id: string;
-//     email: string;
-//     name: string;
-//     emailVerified: any;
-//     hashedPassword: string;
-//     createdAt: string;
-//     updatedAt: string;
-//   };
-//   subLinks: {
-//     id: string;
-//     title: string;
-//     slug: string;
-//     order: number;
-//     status: string;
-//     pageType: string;
-//     userId: string;
-//     content: any;
-//     createdAt: string;
-//     updatedAt: string;
-//   };
-//   actions?: React.ReactNode;
-// }
-
 const SubsubLinkTable = ({
   data,
   headings,
@@ -101,7 +68,7 @@ const SubsubLinkTable = ({
         console.log(error);
       })
       .finally(() => {
-        // setIsLoading(false);
+        handleClose();
         router.refresh();
       });
   };

@@ -12,12 +12,14 @@ const modules = {
   toolbar: [
     [{ font: [] }],
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    [{ size: [] }],
     ["bold", "italic", "underline", "strike"],
     [{ color: [] }, { background: [] }],
     [{ script: "sub" }, { script: "super" }],
     ["blockquote", "code-block"],
     [{ list: "ordered" }, { list: "bullet" }],
     [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
+    [{ lineheight: ["1", "1.5", "2", "2.5", "3"] }],
     ["link", "image", "video"],
     ["clean"],
   ],
@@ -45,6 +47,8 @@ const formats = [
   "image",
   "video",
   "align",
+  "size",
+  "lineheight",
 ];
 
 export function MyEditor({ onChange, content }: any) {
@@ -52,7 +56,7 @@ export function MyEditor({ onChange, content }: any) {
     <div className="h-96">
       {/* Render the dynamic ReactQuill component */}
       <DynamicReactQuill
-        style={{ height: "20rem" }}
+        style={{ height: "20rem", fontSize: "14px" }}
         value={content}
         modules={modules}
         formats={formats}

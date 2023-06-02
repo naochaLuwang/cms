@@ -4,18 +4,20 @@ import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { useState } from "react";
-import Heading from "../../components/Heading";
-import SmallInput from "../../components/Inputs/SmallInput";
+import Heading from "@/app/components/Heading";
+import SmallInput from "@/app/components/Inputs/SmallInput";
 import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
 
 import { useRouter } from "next/navigation";
-import Select from "@/app/components/Select";
+import Select from "../Select";
 
-import ImageUpload from "@/app/components/Inputs/ImageUpload";
+interface EditProgrammeProps {
+  programme: ProgrammeProps;
+}
 
-const NewProgramme = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+const EditProgramme: React.FC<EditProgrammeProps> = ({ programme }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const {
@@ -26,13 +28,14 @@ const NewProgramme = () => {
     watch,
   } = useForm<FieldValues>({
     defaultValues: {
-      programmeName: "",
-      programmeCode: "",
-      programmeType: "degree",
-      programmeDuration: 0,
-      minQualification: "",
-      order: 0,
-      status: "ACTIVE",
+      id: programme.id,
+      slug: programme.slug,
+      programmeName: programme.programmeName,
+      programmeCode: programme.programmeCode,
+      programmeType: programme.programmeType,
+      programmeDuration: programme.programmeDuration,
+      minQualification: programme.minQualification,
+      order: programme.order,
     },
   });
 
@@ -44,16 +47,16 @@ const NewProgramme = () => {
     setValue("slug", slug as string);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
     axios
-      .post("/api/programme", data)
+      .put(`/api/programme/${programme.id}`, data)
       .then(() => {
-        toast.success("Programme created successfully");
+        toast.success("Programme Updated successfully");
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error("Failed to update Programme ");
       })
       .finally(() => {
         setIsLoading(false);
@@ -156,46 +159,6 @@ const NewProgramme = () => {
           ]}
         />
       </div>
-      {/*<div className="flex flex-col w-56 h-auto gap-2">*/}
-      {/*  <h1 className="text-neutral-500">Thumbnail Image</h1>*/}
-      {/*  <ImageUpload*/}
-      {/*    onChange={(value) => setValue("image", value)}*/}
-      {/*    value={image}*/}
-      {/*  />*/}
-      {/*</div>*/}
-      {/* <div className="flex items-center w-full h-auto space-x-3 ">
-        <h1 className="text-neutral-500">Page Type</h1>
-
-        <div className="flex items-center space-x-2">
-          <input
-            type="radio"
-            value="dynamic"
-            id="dynamic"
-            {...register("pageType")}
-            defaultChecked
-          />
-          <label htmlFor="dynamic">Dynamic</label>
-
-          <input
-            type="radio"
-            value="static"
-            {...register("pageType")}
-            id="static"
-          />
-          <label htmlFor="static">Static</label>
-        </div>
-      </div> */}
-
-      {/* {pageType === "dynamic" && (
-        <div className="flex flex-col w-full h-96">
-          <h1 className="mb-5 text-neutral-500">Page Content</h1>
-          <MyEditor
-            onChange={handleEditorChange}
-            content={editorContent}
-            className="h-96"
-          />
-        </div>
-      )} */}
     </div>
   );
 
@@ -204,7 +167,7 @@ const NewProgramme = () => {
       <Wrapper
         disabled={isLoading}
         title=""
-        actionLabel="Submit"
+        actionLabel="Update"
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
       />
@@ -213,4 +176,4 @@ const NewProgramme = () => {
   );
 };
 
-export default NewProgramme;
+export default EditProgramme;

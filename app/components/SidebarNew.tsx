@@ -117,6 +117,36 @@ const Sidebar = () => {
         },
       ],
     },
+    {
+      name: "Programme",
+      icon: MdPeople,
+
+      menus: [
+        {
+          label: "View Programme",
+          href: "/programme",
+        },
+        {
+          label: "Add New Programme",
+          href: "/programme/add_new_programme",
+        },
+      ],
+    },
+    {
+      name: "Testimonial",
+      icon: MdPeople,
+
+      menus: [
+        {
+          label: "View Testimonial",
+          href: "/testimonial",
+        },
+        {
+          label: "Add New Testimonial",
+          href: "/testimonial/add_new_testimonial",
+        },
+      ],
+    },
   ];
 
   if (!session) {

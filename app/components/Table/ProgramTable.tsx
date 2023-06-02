@@ -5,11 +5,11 @@ import { format } from "date-fns";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const DepartmentTable = ({
+const ProgramTable = ({
   data,
   headings,
 }: {
-  data: DepartmentProps[];
+  data: ProgrammeProps[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +42,7 @@ const DepartmentTable = ({
   const currentPageData = data.slice(startIndex, endIndex);
 
   const handleEdit = (id: string) => {
-    router.push(`/department/edit?id=${id}`);
+    router.push(`/programme/edit?id=${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -55,20 +55,20 @@ const DepartmentTable = ({
     console.log(id);
 
     axios
-      .delete("/api/department", {
+      .delete("/api/programme", {
         params: {
           id,
         },
       })
       .then(() => {
         console.log("Successfully deleted");
+        router.refresh();
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
-        // setIsLoading(false);
-        router.refresh();
+        handleClose();
       });
   };
 
@@ -103,25 +103,27 @@ const DepartmentTable = ({
                     {startIndex + index + 1}
                   </td>
                   <td className="px-4 py-2 text-sm text-gray-700">
-                    {row.departmentName}
+                    {row.programmeName}
                   </td>
-                  {row.order && (
-                    <td className="px-4 py-2 text-sm text-gray-700">
-                      {row.order}
-                    </td>
-                  )}
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    {row.programmeCode}
+                  </td>
 
-                  <td className="px-4 py-2 text-sm text-gray-700 w-fit">
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    {row.programmeType}
+                  </td>
+
+                  {/* <td className="px-4 py-2 text-sm text-gray-700 w-fit">
                     <div className="flex items-center px-2 py-1 space-x-2 bg-green-100 rounded-3xl w-fit">
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                       <h1 className="font-semibold text-green-600 lowercase">
                         {row.status}
                       </h1>
                     </div>
-                  </td>
-                  <td className="px-4 py-2 text-sm text-gray-700">
+                  </td> */}
+                  {/* <td className="px-4 py-2 text-sm text-gray-700">
                     {row.createdBy}
-                  </td>
+                  </td> */}
 
                   <td className="px-4 py-2 text-sm text-gray-700">
                     {isNaN(new Date(row.createdAt).getTime()) ? (
@@ -145,7 +147,6 @@ const DepartmentTable = ({
                       <button
                         key={`delete_${row.id}`}
                         className="flex items-center px-3 py-1 space-x-2 text-white bg-red-500 rounded-md w-fit hover:bg-red-600"
-                        // onClick={() => handleDelete(row.id)}
                         onClick={handleOpen}
                       >
                         <FiTrash2 size={16} />
@@ -244,4 +245,4 @@ const DepartmentTable = ({
   );
 };
 
-export default DepartmentTable;
+export default ProgramTable;
