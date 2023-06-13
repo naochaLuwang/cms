@@ -104,7 +104,11 @@ interface PeopleProps {
   showPhone: string;
   status: string;
   profileUrl: string;
-  bio: string;
+  qualification: string;
+  experience: string;
+  research: string;
+  publications: string;
+  achievements: string;
   order: number;
   createdAt: string;
   updatedAt: string;

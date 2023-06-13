@@ -35,25 +35,10 @@ const Sidebar = () => {
           label: "View Link",
           href: "/link",
         },
-        {
-          label: "Add New Link",
-          href: "/link/add_new_link",
-        },
+
         {
           label: "View Sub Link",
           href: "/sublink",
-        },
-        {
-          label: "Add New Sub Link",
-          href: "/sublink/add_new_sublink",
-        },
-        {
-          label: "View Sub Sub Link",
-          href: "/subsublink",
-        },
-        {
-          label: "Add New Sub Sub Link",
-          href: "/subsublink/add_new_subsublink",
         },
       ],
     },
@@ -81,10 +66,6 @@ const Sidebar = () => {
           label: "View Department",
           href: "/department",
         },
-        {
-          label: "Add New Department",
-          href: "/department/add_new_department",
-        },
       ],
     },
     {
@@ -95,10 +76,6 @@ const Sidebar = () => {
         {
           label: "View Designation",
           href: "/designation",
-        },
-        {
-          label: "Add New Designation",
-          href: "/designation/add_new_designation",
         },
       ],
     },
@@ -111,10 +88,6 @@ const Sidebar = () => {
           label: "View People",
           href: "/people",
         },
-        {
-          label: "Add New Person",
-          href: "/people/add_new_people",
-        },
       ],
     },
     {
@@ -126,10 +99,6 @@ const Sidebar = () => {
           label: "View Programme",
           href: "/programme",
         },
-        {
-          label: "Add New Programme",
-          href: "/programme/add_new_programme",
-        },
       ],
     },
     {
@@ -140,10 +109,6 @@ const Sidebar = () => {
         {
           label: "View Testimonial",
           href: "/testimonial",
-        },
-        {
-          label: "Add New Testimonial",
-          href: "/testimonial/add_new_testimonial",
         },
       ],
     },

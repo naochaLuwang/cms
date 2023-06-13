@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
 import Heading from "../components/Heading";
 
@@ -16,6 +16,7 @@ import MyEditor from "@/app/components/Editor";
 import { useRouter } from "next/navigation";
 import ImageUpload from "./Inputs/ImageUpload";
 import DesignationSelect from "./Select/DesignationSelect";
+import Image from "next/image";
 
 interface NewPeopleProps {
   department: DepartmentProps[];
@@ -24,6 +25,7 @@ interface NewPeopleProps {
 
 const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [imageUrl, setImageUrl] = useState("");
   const router = useRouter();
 
   const {
@@ -44,7 +46,11 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
       showPhone: "YES",
       departmentId: "",
       designationId: "",
-      bio: "",
+      qualification: "",
+      research: "",
+      publications: "",
+      experience: "",
+      achievements: "",
       order: 0,
       profileUrl: "",
 
@@ -55,6 +61,48 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
   const firstName = watch("firstName");
   const lastName = watch("lastName");
   const profileUrl = watch("profileUrl");
+
+  const onImageFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const fileInput = e.target;
+
+    if (!fileInput.files) {
+      console.warn("no file was chosen");
+      return;
+    }
+
+    if (!fileInput.files || fileInput.files.length === 0) {
+      console.warn("files list is empty");
+      return;
+    }
+
+    const file = fileInput.files[0];
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/doctorimage", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        console.error("something went wrong, check your console.");
+        return;
+      }
+
+      const data: { fileUrl: string } = await res.json();
+
+      setImageUrl(data.fileUrl);
+      setValue("profileUrl", data.fileUrl);
+    } catch (error) {
+      console.error("something went wrong, check your console.");
+    }
+
+    /** Reset file input */
+    e.target.type = "text";
+    e.target.type = "file";
+  };
 
   const generateSlug = () => {
     // Generate slug from username
@@ -67,15 +115,34 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
     setValue("slug", slug as string);
   };
 
-  const handleEditorChange = (value: string) => {
-    setValue("bio", value);
-    console.log(value);
+  const handleQualificationChange = (value: string) => {
+    setValue("qualification", value);
+  };
+  const handleResearchChange = (value: string) => {
+    setValue("research", value);
+  };
+  const handleExperienceChange = (value: string) => {
+    setValue("experience", value);
   };
 
-  const editorContent = watch("bio");
+  const handlePublicationsChange = (value: string) => {
+    setValue("publications", value);
+  };
+
+  const handleAchievementsChange = (value: string) => {
+    setValue("achievements", value);
+  };
+
+  const qualificationContent = watch("qualification");
+  const reasearchContent = watch("research");
+  const experienceContent = watch("experience");
+  const publicationsContent = watch("publications");
+  const achievementsContent = watch("achievements");
 
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
     setIsLoading(true);
+
+    console.log(data);
 
     axios
       .post("/api/people", data)
@@ -138,7 +205,6 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
             disabled={isLoading}
             register={register}
             errors={errors}
-            required
             isNumber={false}
           />
 
@@ -173,7 +239,6 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
             disabled={isLoading}
             register={register}
             errors={errors}
-            required
             isNumber={false}
           />
 
@@ -184,19 +249,19 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
               <input
                 type="radio"
                 value="YES"
-                id="yesp"
+                id="yes"
                 {...register("showPhone")}
                 defaultChecked
               />
-              <label htmlFor="yesp">Yes</label>
+              <label htmlFor="yes">Yes</label>
 
               <input
                 type="radio"
                 value="NO"
                 {...register("showPhone")}
-                id="nop"
+                id="no"
               />
-              <label htmlFor="nop">No</label>
+              <label htmlFor="no">No</label>
             </div>
           </div>
         </div>
@@ -253,19 +318,94 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
           isNumber
         />
 
-        <div className="flex flex-col w-56 h-auto gap-2">
+        {/* <div className="flex flex-col w-56 h-auto gap-2">
           <h1 className="text-neutral-500">Profile Image</h1>
           <ImageUpload
             onChange={(value) => setValue("profileUrl", value)}
             value={profileUrl}
           />
+        </div> */}
+
+        <div className="w-full h-auto">
+          <h1>Profile Image</h1>
+          {imageUrl ? (
+            <div className="relative w-48 h-48">
+              <Image
+                src={imageUrl}
+                alt="uploaded image"
+                fill
+                style={{ objectFit: "fill" }}
+                className="rounded-md"
+                priority={true}
+              />
+            </div>
+          ) : (
+            <div className="w-48 h-48">
+              <label
+                htmlFor="imgUrl"
+                className="inset-0 flex items-center justify-center w-full h-full transition duration-300 bg-gray-300 bg-opacity-25 rounded-md cursor-pointer hover:bg-opacity-50 focus-within:bg-opacity-50"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-8 h-8 text-gray-600"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 2C5.03 2 1 6.03 1 10c0 3.97 3.03 8 9 8 3.97 0 8-3.03 8-8 0-4.97-4.03-8-8-8zM5 11h4v4h2v-4h4V9h-4V5H9v4H5v2z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <span className="ml-2 text-gray-600">Upload Image</span>
+              </label>
+              <input
+                id="imgUrl"
+                className="absolute w-0 h-0 opacity-0"
+                type="file"
+                onChange={onImageFileChange}
+              />
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col w-full h-96">
-          <h1 className="mb-2 text-neutral-500">Bio</h1>
+          <h1 className="mb-2 text-neutral-500">Qualification</h1>
           <MyEditor
-            onChange={handleEditorChange}
-            content={editorContent}
+            onChange={handleQualificationChange}
+            content={qualificationContent}
+            className="h-96"
+          />
+        </div>
+        <div className="flex flex-col w-full mt-10 h-96">
+          <h1 className="mb-2 text-neutral-500">Research Interest</h1>
+          <MyEditor
+            onChange={handleResearchChange}
+            content={reasearchContent}
+            className="h-96"
+          />
+        </div>
+        <div className="flex flex-col w-full mt-10 h-96">
+          <h1 className="mb-2 text-neutral-500">Working Experience</h1>
+          <MyEditor
+            onChange={handleExperienceChange}
+            content={experienceContent}
+            className="h-96"
+          />
+        </div>
+        <div className="flex flex-col w-full mt-10 h-96">
+          <h1 className="mb-2 text-neutral-500">Research & Publications</h1>
+          <MyEditor
+            onChange={handlePublicationsChange}
+            content={publicationsContent}
+            className="h-96"
+          />
+        </div>
+        <div className="flex flex-col w-full mt-10 h-96">
+          <h1 className="mb-2 text-neutral-500">Other Achievementss</h1>
+          <MyEditor
+            onChange={handleAchievementsChange}
+            content={achievementsContent}
             className="h-96"
           />
         </div>
