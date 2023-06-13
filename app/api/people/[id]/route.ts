@@ -55,7 +55,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
       showPhone,
       departmentId,
       designationId,
-      bio,
+
       order,
       profileUrl,
       status,
