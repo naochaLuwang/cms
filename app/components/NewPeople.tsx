@@ -62,47 +62,47 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
   const lastName = watch("lastName");
   const profileUrl = watch("profileUrl");
 
-  const onImageFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const fileInput = e.target;
+  // const onImageFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  //   const fileInput = e.target;
 
-    if (!fileInput.files) {
-      console.warn("no file was chosen");
-      return;
-    }
+  //   if (!fileInput.files) {
+  //     console.warn("no file was chosen");
+  //     return;
+  //   }
 
-    if (!fileInput.files || fileInput.files.length === 0) {
-      console.warn("files list is empty");
-      return;
-    }
+  //   if (!fileInput.files || fileInput.files.length === 0) {
+  //     console.warn("files list is empty");
+  //     return;
+  //   }
 
-    const file = fileInput.files[0];
+  //   const file = fileInput.files[0];
 
-    const formData = new FormData();
-    formData.append("file", file);
+  //   const formData = new FormData();
+  //   formData.append("file", file);
 
-    try {
-      const res = await fetch("/api/doctorimage", {
-        method: "POST",
-        body: formData,
-      });
+  //   try {
+  //     const res = await fetch("/api/doctorimage", {
+  //       method: "POST",
+  //       body: formData,
+  //     });
 
-      if (!res.ok) {
-        console.error("something went wrong, check your console.");
-        return;
-      }
+  //     if (!res.ok) {
+  //       console.error("something went wrong, check your console.");
+  //       return;
+  //     }
 
-      const data: { fileUrl: string } = await res.json();
+  //     const data: { fileUrl: string } = await res.json();
 
-      setImageUrl(data.fileUrl);
-      setValue("profileUrl", data.fileUrl);
-    } catch (error) {
-      console.error("something went wrong, check your console.");
-    }
+  //     setImageUrl(data.fileUrl);
+  //     setValue("profileUrl", data.fileUrl);
+  //   } catch (error) {
+  //     console.error("something went wrong, check your console.");
+  //   }
 
-    /** Reset file input */
-    e.target.type = "text";
-    e.target.type = "file";
-  };
+  //   /** Reset file input */
+  //   e.target.type = "text";
+  //   e.target.type = "file";
+  // };
 
   const generateSlug = () => {
     // Generate slug from username
@@ -318,15 +318,15 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
           isNumber
         />
 
-        {/* <div className="flex flex-col w-56 h-auto gap-2">
+        <div className="flex flex-col w-56 h-auto gap-2">
           <h1 className="text-neutral-500">Profile Image</h1>
           <ImageUpload
             onChange={(value) => setValue("profileUrl", value)}
             value={profileUrl}
           />
-        </div> */}
+        </div>
 
-        <div className="w-full h-auto">
+        {/* <div className="w-full h-auto">
           <h1>Profile Image</h1>
           {imageUrl ? (
             <div className="relative w-48 h-48">
@@ -367,7 +367,7 @@ const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {
               />
             </div>
           )}
-        </div>
+        </div> */}
 
         <div className="flex flex-col w-full h-96">
           <h1 className="mb-2 text-neutral-500">Qualification</h1>
