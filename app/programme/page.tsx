@@ -1,13 +1,13 @@
-import { getAllProgramme } from "../actions/getAllProgramme";
+import { Programme } from "@prisma/client";
 
-import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
 import ProgramTable from "../components/Table/ProgramTable";
+import client from "../libs/prismadb";
 
 export const revalidate = 0;
 
 const ProgramPage = async () => {
-  const programme: ProgrammeProps[] = await getAllProgramme();
+  const programme: Programme[] = await client.programme.findMany({});
 
   return (
     <div className="w-full h-auto">

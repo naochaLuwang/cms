@@ -2,49 +2,11 @@
 import React, { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { format } from "date-fns";
-import axios from "axios";
+
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
-interface LinkProp {
-  id: string;
-  title: string;
-  slug: string;
-  order: number;
-  status: boolean;
-  createdAt: string;
-  updatedAt: string;
-  sublinks: SubLinkProps[];
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    emailVerified: any;
-    hashedPassword: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-  actions?: React.ReactNode;
-}
-
-interface SubLinkProps {
-  id: string;
-  linkId: string;
-  title: string;
-  slug: string;
-  order: number;
-  status: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
-const LinkTable = ({
-  data,
-  headings,
-}: {
-  data: LinkProps[];
-  headings: string[];
-}) => {
+const LinkTable = ({ data, headings }: { data: any; headings: string[] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -124,7 +86,7 @@ const LinkTable = ({
 
           {currentPageData.length > 0 ? (
             <tbody className="">
-              {currentPageData.map((row, index) => (
+              {currentPageData.map((row: any, index: any) => (
                 <tr
                   key={row.id}
                   className="transition duration-300 ease-in-out hover:bg-gray-100"

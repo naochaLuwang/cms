@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return NextResponse.error();
+    return new NextResponse("Unauthorized", { status: 401 });
   }
   const body = await request.json();
 
@@ -24,12 +24,6 @@ export async function POST(request: Request) {
   });
 
   return NextResponse.json(department);
-}
-
-export async function GET(request: Request) {
-  const departments = await prisma.department.findMany();
-
-  return NextResponse.json(departments);
 }
 
 export async function DELETE(request: Request) {

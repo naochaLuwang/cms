@@ -1,20 +1,19 @@
 "use client";
+
 import axios from "axios";
-
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import Heading from "@/app/components/Heading";
 import SmallInput from "@/app/components/Inputs/SmallInput";
-import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
-
-import { useRouter } from "next/navigation";
 import Select from "../Select";
 import ImageUpload from "../Inputs/ImageUpload";
 
 interface EditCarousalProps {
-  carousalImage: carousalimageProps;
+  carousalImage: any;
 }
 
 const EditCarousal: React.FC<EditCarousalProps> = ({ carousalImage }) => {
@@ -44,14 +43,15 @@ const EditCarousal: React.FC<EditCarousalProps> = ({ carousalImage }) => {
     axios
       .put(`/api/carousalimage/${carousalImage.id}`, data)
       .then(() => {
+        router.refresh();
         toast.success("Carousal Image Updated successfully");
+        router.push("/carousalimage");
       })
       .catch((error) => {
         toast.error("Failed to update Carousal Image ");
       })
       .finally(() => {
         setIsLoading(false);
-        router.push("/carousalimage");
       });
   };
 

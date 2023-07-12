@@ -4,12 +4,13 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { format } from "date-fns";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Department } from "@prisma/client";
 
 const DepartmentTable = ({
   data,
   headings,
 }: {
-  data: DepartmentProps[];
+  data: Department[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);

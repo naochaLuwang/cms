@@ -1,7 +1,7 @@
-import { getAllUsers } from "../actions/getAllUsers";
-import Empty from "../components/Empty";
+import { User } from "@prisma/client";
 import PageHeader from "../components/PageHeader";
 import UserTable from "../components/Table/UserTable";
+import client from "../libs/prismadb";
 
 interface UserProps {
   id: string;
@@ -16,7 +16,7 @@ interface UserProps {
 export const revalidate = 0;
 
 const UserPage = async () => {
-  const users: UserProps[] = await getAllUsers();
+  const users: User[] = await client.user.findMany({});
 
   return (
     <div className="w-full h-auto">

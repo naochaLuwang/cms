@@ -2,7 +2,7 @@ import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
 import LinkTable from "../components/Table/LinkTable";
 
-import { getAllLinks } from "@/app/actions/getAllLinks";
+import client from "../libs/prismadb";
 
 export const metadata = {
   title: "Link | Rely CMS 2",
@@ -11,7 +11,12 @@ export const metadata = {
 export const revalidate = 0;
 
 const LinkPage = async () => {
-  const menus = await getAllLinks();
+  const menus: any = await client.links.findMany({
+    include: {
+      sublinks: true,
+      user: true,
+    },
+  });
 
   if (menus.length === 0) {
     return (

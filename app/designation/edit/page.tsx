@@ -1,9 +1,12 @@
-import { getDesignation } from "@/app/actions/getDesignation";
-
 import EditDesignation from "@/app/components/Edit/EditDesignation";
+import client from "@/app/libs/prismadb";
 
 const EditDesignationPage = async ({ searchParams }: any) => {
-  const designation = await getDesignation(searchParams.id);
+  const designation: any = await client.designation.findUnique({
+    where: {
+      id: searchParams.id,
+    },
+  });
 
   return (
     <>

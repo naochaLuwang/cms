@@ -6,24 +6,13 @@ interface IParams {
   id?: string;
 }
 
-export async function GET(request: Request, { params }: { params: IParams }) {
-  const { id } = params;
-  const carousalimage = await prisma.carousalimage.findUnique({
-    where: {
-      id: id,
-    },
-  });
-
-  return NextResponse.json(carousalimage);
-}
-
 export async function PUT(request: Request, { params }: { params: IParams }) {
   const { id } = params;
 
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return NextResponse.error();
+    return new NextResponse("Unauthorized", { status: 401 });
   }
   const body = await request.json();
 

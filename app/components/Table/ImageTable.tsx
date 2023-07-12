@@ -6,12 +6,13 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
+import { Carousalimage } from "@prisma/client";
 
 const ImageTable = ({
   data,
   headings,
 }: {
-  data: carousalimageProps[];
+  data: Carousalimage[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +69,7 @@ const ImageTable = ({
 
           {currentPageData.length > 0 ? (
             <tbody className="">
-              {currentPageData.map((row, index) => (
+              {currentPageData.map((row: any, index) => (
                 <tr
                   key={row.id}
                   className="transition duration-300 ease-in-out hover:bg-gray-100"

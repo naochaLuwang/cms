@@ -29,30 +29,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json(newSublink);
 }
-
-export async function GET(request: Request) {
-  const menus = await prisma.sublinks.findMany({
-    include: {
-      user: true,
-      Subsublinks: true,
-      link: true,
-    },
-  });
-
-  return NextResponse.json(menus);
-}
-
-export async function DELETE(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
-
-  if (!id) {
-    return NextResponse.json({ message: "ID cannot be empty" });
-  }
-
-  const deleteUser = await prisma.sublinks.delete({
-    where: {
-      id: id,
-    },
-  });
-}

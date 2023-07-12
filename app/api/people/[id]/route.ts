@@ -5,17 +5,6 @@ interface IParams {
   id?: string;
 }
 
-export async function GET(request: Request, { params }: { params: IParams }) {
-  const { id } = params;
-  const person = await prisma.people.findUnique({
-    where: {
-      id: id,
-    },
-  });
-
-  return NextResponse.json(person);
-}
-
 export async function PUT(request: Request, { params }: { params: IParams }) {
   const { id } = params;
 

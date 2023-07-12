@@ -4,24 +4,13 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { format } from "date-fns";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
-interface DesignationProps {
-  id: string;
-  designationName: string;
-  designationCode: string;
-
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string;
-  updatedBy: string;
-}
+import { Designation } from "@prisma/client";
 
 const DesignationTable = ({
   data,
   headings,
 }: {
-  data: DesignationProps[];
+  data: Designation[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,11 +1,18 @@
-import { getAllSubLinks } from "../actions/getAllSubLinks";
+import { Sublinks } from "@prisma/client";
+
 import Empty from "../components/Empty";
 
 import PageHeader from "../components/PageHeader";
 import SubLinkTable from "../components/Table/SubLinkTable";
+import client from "../libs/prismadb";
 
 const SubLinkPage = async () => {
-  const sublinks = await getAllSubLinks();
+  const sublinks: Sublinks[] = await client.sublinks.findMany({
+    include: {
+      user: true,
+      link: true,
+    },
+  });
 
   if (sublinks.length === 0) {
     return (

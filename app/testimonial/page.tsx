@@ -1,11 +1,11 @@
-import Empty from "../components/Empty";
-
-import PageHeader from "../components/PageHeader";
+import Empty from "@/app/components/Empty";
+import PageHeader from "@/app/components/PageHeader";
 import TestimonialTable from "../components/Table/TestimonialTable";
-import { getAllTestimonials } from "../actions/getAllTestimonial";
+import client from "@/app/libs/prismadb";
+import { Testimonial } from "@prisma/client";
 
 const SubLinkPage = async () => {
-  const testimonials = await getAllTestimonials();
+  const testimonials: Testimonial[] = await client.testimonial.findMany({});
 
   if (testimonials.length === 0) {
     return (

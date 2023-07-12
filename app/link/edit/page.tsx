@@ -1,8 +1,12 @@
-import { getLink } from "@/app/actions/getLink";
 import EditLink from "../../components/Edit/EditLink";
+import client from "@/app/libs/prismadb";
 
 const EditPage = async ({ searchParams }: any) => {
-  const link = await getLink(searchParams.id);
+  const link: any = await client.links.findUnique({
+    where: {
+      id: searchParams.id,
+    },
+  });
 
   return (
     <>

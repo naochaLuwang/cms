@@ -25,24 +25,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json(department);
 }
-
-export async function GET(request: Request) {
-  const designations = await prisma.designation.findMany();
-
-  return NextResponse.json(designations);
-}
-
-export async function DELETE(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
-
-  if (!id) {
-    return NextResponse.json({ message: "ID cannot be empty" });
-  }
-
-  const deleteUser = await prisma.department.delete({
-    where: {
-      id: id,
-    },
-  });
-}

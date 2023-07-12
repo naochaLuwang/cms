@@ -11,9 +11,10 @@ import Wrapper from "@/app/components/Wrapper";
 
 import { useRouter } from "next/navigation";
 import Select from "../Select";
+import { Programme } from "@prisma/client";
 
 interface EditProgrammeProps {
-  programme: ProgrammeProps;
+  programme: any;
 }
 
 const EditProgramme: React.FC<EditProgrammeProps> = ({ programme }) => {

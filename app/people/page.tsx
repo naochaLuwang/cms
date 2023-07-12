@@ -2,12 +2,21 @@ import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
 import PeopleTable from "../components/Table/PeopleTable";
 
-import { getAllPeople } from "@/app/actions/getAllPeople";
+import client from "../libs/prismadb";
+import { People } from "@prisma/client";
 
 export const revalidate = 0;
 
 const Menu = async () => {
-  const people: PeopleProps[] = await getAllPeople();
+  const people: People[] = await client.people.findMany({
+    where: {
+      status: "ACTIVE",
+    },
+    include: {
+      department: true,
+      designation: true,
+    },
+  });
 
   if (people.length === 0) {
     return (

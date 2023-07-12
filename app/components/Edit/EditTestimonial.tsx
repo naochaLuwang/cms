@@ -1,23 +1,20 @@
 "use client";
 import axios from "axios";
-
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
 import { useState } from "react";
-import Heading from "@/app/components/Heading";
-import SmallInput from "@/app/components/Inputs/SmallInput";
+import { useRouter } from "next/navigation";
+import { Testimonial } from "@prisma/client";
+
 import toast, { Toaster } from "react-hot-toast";
 import Wrapper from "@/app/components/Wrapper";
-import MyEditor from "@/app/components/Editor";
-
-import { useRouter } from "next/navigation";
+import Heading from "@/app/components/Heading";
+import SmallInput from "@/app/components/Inputs/SmallInput";
 import Select from "../Select";
 import ImageUpload from "../Inputs/ImageUpload";
-
 import Textbox from "../Textbox";
 
 interface EditTestimonialProps {
-  testimonial: TestimonialProps;
+  testimonial: Testimonial;
 }
 
 const EditTestimonial: React.FC<EditTestimonialProps> = ({ testimonial }) => {
@@ -45,12 +42,6 @@ const EditTestimonial: React.FC<EditTestimonialProps> = ({ testimonial }) => {
       updatedAt: testimonial.updatedAt,
     },
   });
-
-  const handleEditorChange = (value: string) => {
-    setValue("bio", value);
-  };
-
-  const editorContent = watch("bio");
 
   const imageUrl = watch("imageUrl");
 

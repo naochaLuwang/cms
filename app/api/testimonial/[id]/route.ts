@@ -6,17 +6,6 @@ interface IParams {
   id?: string;
 }
 
-export async function GET(request: Request, { params }: { params: IParams }) {
-  const { id } = params;
-  const testimonial = await prisma.testimonial.findUnique({
-    where: {
-      id: id,
-    },
-  });
-
-  return NextResponse.json(testimonial);
-}
-
 export async function PUT(request: Request, { params }: { params: IParams }) {
   const currentUser = await getCurrentUser();
 

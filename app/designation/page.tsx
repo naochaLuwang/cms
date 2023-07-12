@@ -1,13 +1,15 @@
-import { getAllDesignation } from "../actions/getAllDesignation";
+import { Designation } from "@prisma/client";
+
 import Empty from "../components/Empty";
 import PageHeader from "../components/PageHeader";
 
 import DesignationTable from "../components/Table/DesignationTable";
+import client from "../libs/prismadb";
 
 export const revalidate = 0;
 
 const DesignationPage = async () => {
-  const designations: DesignationProps[] = await getAllDesignation();
+  const designations: Designation[] = await client.designation.findMany({});
 
   if (designations.length === 0) {
     return (

@@ -2,24 +2,15 @@
 import React, { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { format } from "date-fns";
-import axios from "axios";
+
 import { useRouter } from "next/navigation";
-
-interface UserProps {
-  id: string;
-  email: string;
-  name: string;
-
-  hashedPassword: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { User } from "@prisma/client";
 
 const UserTable = ({
   data,
   headings,
 }: {
-  data: UserProps[];
+  data: User[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);

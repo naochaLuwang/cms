@@ -1,15 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { format } from "date-fns";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Programme } from "@prisma/client";
 
 const ProgramTable = ({
   data,
   headings,
 }: {
-  data: ProgrammeProps[];
+  data: Programme[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);

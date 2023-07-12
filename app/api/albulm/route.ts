@@ -2,14 +2,14 @@ import prisma from "@/app/libs/prismadb";
 
 import { NextResponse } from "next/server";
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import { verifyJwt } from "@/app/libs/jwt";
 
 export async function POST(request: Request) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return NextResponse.error();
+    return new NextResponse("Unauthorized", { status: 401 });
   }
+
   const body = await request.json();
 
   const { title, order, thumbnailImage, status } = body;
@@ -25,14 +25,4 @@ export async function POST(request: Request) {
   });
 
   return NextResponse.json(orgsetting);
-}
-
-export async function GET(request: Request) {
-  const album = await prisma.albulm.findMany({
-    include: {
-      images: true,
-    },
-  });
-
-  return NextResponse.json(album);
 }

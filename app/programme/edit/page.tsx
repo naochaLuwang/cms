@@ -1,8 +1,12 @@
-import { getProgramme } from "@/app/actions/getProgramme";
 import EditProgramme from "@/app/components/Edit/EditProgramme";
+import client from "@/app/libs/prismadb";
 
 const EditProgrammePage = async ({ searchParams }: any) => {
-  const programme = await getProgramme(searchParams.id);
+  const programme: any = await client.programme.findUnique({
+    where: {
+      id: searchParams.id,
+    },
+  });
 
   return (
     <>

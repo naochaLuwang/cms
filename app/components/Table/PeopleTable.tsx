@@ -1,15 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { format } from "date-fns";
-import axios from "axios";
+
 import { useRouter } from "next/navigation";
+import { People } from "@prisma/client";
 
 const PeopleTable = ({
   data,
   headings,
 }: {
-  data: PeopleProps[];
+  data: People[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,7 +67,7 @@ const PeopleTable = ({
 
           {currentPageData.length > 0 ? (
             <tbody className="">
-              {currentPageData.map((row, index) => (
+              {currentPageData.map((row: any, index: any) => (
                 <tr
                   key={row.id}
                   className="transition duration-300 ease-in-out hover:bg-gray-100"

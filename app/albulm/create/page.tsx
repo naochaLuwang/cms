@@ -1,21 +1,19 @@
 "use client";
 
 import axios from "axios";
-import Wrapper from "@/app/components/Wrapper";
-import Heading from "@/app/components/Heading";
 import { useState } from "react";
-import SmallInput from "@/app/components/Inputs/SmallInput";
-
 import toast, { Toaster } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
-import ImageUpload from "../../components/Inputs/ImageUpload";
 import { useRouter } from "next/navigation";
+
+import Wrapper from "@/app/components/Wrapper";
+import Heading from "@/app/components/Heading";
+import SmallInput from "@/app/components/Inputs/SmallInput";
+import ImageUpload from "../../components/Inputs/ImageUpload";
 import Select from "@/app/components/Select";
 
 const CreateAlbulmPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-
   const router = useRouter();
 
   const {
@@ -36,28 +34,21 @@ const CreateAlbulmPage = () => {
 
   const thumbnailImage = watch("thumbnailImage");
 
-  // const setCustomValue = (id: string, value: any) => {
-  //   setValue(id, value, {
-  //     shouldDirty: true,
-  //     shouldTouch: true,
-  //     shouldValidate: true,
-  //   });
-  // };
-
   const onSubmit: SubmitHandler<FieldValues> = (datas) => {
     setIsLoading(true);
 
     axios
       .post("/api/albulm", datas)
       .then(() => {
+        router.refresh();
         toast.success("Image Uploaded successfully");
+        router.push("/albulm");
       })
       .catch((error) => {
         toast.error("Error ");
       })
       .finally(() => {
         setIsLoading(false);
-        router.push("/albulm");
       });
   };
 
@@ -103,7 +94,7 @@ const CreateAlbulmPage = () => {
       <div className="flex flex-col w-full h-auto gap-2">
         <h1 className="text-neutral-500">Thumbnail Image</h1>
         <ImageUpload
-          onChange={(value: any) => setValue("thumbnailImage", value)}
+          onChange={(value: string) => setValue("thumbnailImage", value)}
           value={thumbnailImage}
         />
       </div>

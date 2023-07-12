@@ -242,3 +242,12 @@ model News {
   createdBy   String
   updatedBy   String
 }
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  phone     String
+  message   String
+  createdAt DateTime @default(now())
+  status    String
+}

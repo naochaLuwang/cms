@@ -39,34 +39,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json(menu);
 }
-
-export async function GET(request: Request) {
-  const programme = await prisma.programme.findMany();
-
-  return NextResponse.json(programme);
-}
-
-export async function DELETE(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
-
-  if (!id) {
-    return NextResponse.json({ message: "ID cannot be empty" });
-  }
-
-  try {
-    await prisma.programme.delete({
-      where: {
-        id: id,
-      },
-    });
-
-    return NextResponse.json({ message: "Programme deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting program:", error);
-    return NextResponse.json(
-      { message: "Failed to delete programme" },
-      { status: 500 }
-    );
-  }
-}

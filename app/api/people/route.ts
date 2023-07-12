@@ -57,17 +57,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json(people);
 }
-
-export async function GET(request: Request) {
-  const peoples = await prisma.people.findMany({
-    where: {
-      status: "ACTIVE",
-    },
-    include: {
-      department: true,
-      designation: true,
-    },
-  });
-
-  return NextResponse.json(peoples);
-}

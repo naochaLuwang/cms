@@ -1,16 +1,10 @@
-import { getAllDesignation } from "@/app/actions/getAllDesignation";
 import NewPeople from "../../components/NewPeople";
-
-async function getDepartment() {
-  const res = await fetch(`${process.env.API_URL}/api/department`, {
-    cache: "no-store",
-  });
-  return res.json();
-}
+import client from "@/app/libs/prismadb";
+import { Department, Designation } from "@prisma/client";
 
 const NewPeoplepage = async () => {
-  const department: DepartmentProps[] = await getDepartment();
-  const designations: DesignationProps[] = await getAllDesignation();
+  const department: Department[] = await client.department.findMany({});
+  const designations: Designation[] = await client.designation.findMany({});
 
   return (
     <div className="w-full h-auto">

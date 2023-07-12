@@ -6,17 +6,6 @@ interface IParams {
   id?: string;
 }
 
-export async function GET(request: Request, { params }: { params: IParams }) {
-  const { id } = params;
-  const programme = await prisma.programme.findUnique({
-    where: {
-      id: id,
-    },
-  });
-
-  return NextResponse.json(programme);
-}
-
 export async function PUT(request: Request, { params }: { params: IParams }) {
   const currentUser = await getCurrentUser();
 
@@ -35,6 +24,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     programmeDuration,
     minQualification,
     order,
+    status,
   } = body;
 
   if (!id || typeof id !== "string") {
@@ -53,6 +43,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
       programmeDuration,
       minQualification,
       order,
+      status,
     },
   });
 

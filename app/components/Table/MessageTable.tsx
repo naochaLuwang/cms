@@ -2,15 +2,16 @@
 import React, { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { format } from "date-fns";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
 
-const SubsubLinkTable = ({
+import { useRouter } from "next/navigation";
+import { Message, User } from "@prisma/client";
+import { BsEye } from "react-icons/bs";
+
+const MessageTable = ({
   data,
   headings,
 }: {
-  data: SubsubLinkProps[];
+  data: Message[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,34 +44,7 @@ const SubsubLinkTable = ({
   const currentPageData = data.slice(startIndex, endIndex);
 
   const handleEdit = (id: string) => {
-    router.push(`/subsublink/edit?id=${id}`);
-  };
-
-  const handleDelete = (id: string) => {
-    // Check if id is empty or undefined
-    if (!id) {
-      console.error("Invalid id value:", id);
-      return;
-    }
-
-    console.log(id);
-
-    axios
-      .delete("/api/subsublinks", {
-        params: {
-          id,
-        },
-      })
-      .then(() => {
-        toast.success("Successfully deleted");
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        handleClose();
-        router.refresh();
-      });
+    router.push(`/user/edit?id=${id}`);
   };
 
   // Render the table content
@@ -104,27 +78,29 @@ const SubsubLinkTable = ({
                     {startIndex + index + 1}
                   </td>
                   <td className="px-4 py-2 text-sm text-gray-700">
-                    {row.title}
+                    {row.name}
                   </td>
-                  <td className="px-4 py-2 text-sm text-orange-700">
-                    /{row.slug}
+
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    {row.phone}
                   </td>
-                  <td className="px-4 py-2 text-sm text-blue-600">
-                    {row.subLinks.title}
+                  <td className="px-4 py-2 text-sm text-gray-700">
+                    {row.message}
                   </td>
-                  <td className="px-4 py-2 text-sm text-gray-700 w-fit">
+
+                  {/* <td className="px-4 py-2 text-sm text-gray-700 w-fit">
                     <div className="flex items-center px-2 py-1 space-x-2 bg-green-100 rounded-3xl w-fit">
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                       <h1 className="font-semibold text-green-600 lowercase">
                         {row.status}
                       </h1>
                     </div>
-                  </td>
-                  <td className="px-4 py-2 text-sm text-gray-700">
-                    {row.user?.name}
-                  </td>
+                  </td> */}
+                  {/* <td className="px-4 py-2 text-sm text-gray-700">
+                    {row.createdBy}
+                  </td> */}
 
-                  <td className="px-4 py-2 text-sm text-gray-700">
+                  {/* <td className="px-4 py-2 text-sm text-gray-700">
                     {isNaN(new Date(row.createdAt).getTime()) ? (
                       <span>Invalid Date</span>
                     ) : (
@@ -132,7 +108,7 @@ const SubsubLinkTable = ({
                         {format(new Date(row.createdAt), "dd/MM/yy HH:mm")}
                       </span>
                     )}
-                  </td>
+                  </td> */}
                   <td className="px-4 py-2 text-sm text-gray-700">
                     <div className="flex ">
                       <button
@@ -140,45 +116,9 @@ const SubsubLinkTable = ({
                         className="flex items-center px-3 py-1 mr-2 space-x-2 text-blue-600 bg-blue-100 rounded-md hover:text-blue-800 w-fit hover:bg-blue-200 active:bg-blue-300"
                         onClick={() => handleEdit(row.id)}
                       >
-                        <FiEdit size={16} />
-                        <h1 className="font-medium">Edit</h1>
+                        <BsEye size={16} />
+                        <h1 className="font-medium">View</h1>
                       </button>
-                      <button
-                        key={`delete_${row.id}`}
-                        className="flex items-center px-3 py-1 space-x-2 text-white bg-red-500 rounded-md w-fit hover:bg-red-600"
-                        // onClick={() => handleDelete(row.id)}
-                        onClick={handleOpen}
-                      >
-                        <FiTrash2 size={16} />
-                        <h1 className="font-medium">Delete</h1>
-                      </button>
-                      {isOpen && (
-                        <div className="fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center w-full">
-                          <div className="absolute top-0 bottom-0 left-0 right-0 bg-black opacity-50"></div>
-
-                          <div className="z-50 p-4 bg-white rounded shadow-lg w-96">
-                            <p className="mb-4 text-lg text-neutral-600">
-                              Are you sure you want to delete?
-                            </p>
-
-                            <div className="flex justify-end">
-                              <button
-                                className="px-4 py-2 mr-4 text-white bg-gray-500 rounded"
-                                onClick={handleClose}
-                              >
-                                Cancel
-                              </button>
-
-                              <button
-                                className="px-4 py-2 text-white bg-red-500 rounded"
-                                onClick={() => handleDelete(row.id)}
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </td>
                 </tr>
@@ -241,9 +181,8 @@ const SubsubLinkTable = ({
           </div>
         </div>
       </div>
-      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };
 
-export default SubsubLinkTable;
+export default MessageTable;

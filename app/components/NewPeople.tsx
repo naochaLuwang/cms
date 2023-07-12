@@ -17,10 +17,11 @@ import { useRouter } from "next/navigation";
 import ImageUpload from "./Inputs/ImageUpload";
 import DesignationSelect from "./Select/DesignationSelect";
 import Image from "next/image";
+import { Department, Designation } from "@prisma/client";
 
 interface NewPeopleProps {
-  department: DepartmentProps[];
-  designations: DesignationProps[];
+  department: Department[];
+  designations: any;
 }
 
 const NewPeople: React.FC<NewPeopleProps> = ({ department, designations }) => {

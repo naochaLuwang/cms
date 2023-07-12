@@ -1,15 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { format } from "date-fns";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Testimonial } from "@prisma/client";
 
 const TestimonialTable = ({
   data,
   headings,
 }: {
-  data: TestimonialProps[];
+  data: Testimonial[];
   headings: string[];
 }) => {
   const [isOpen, setIsOpen] = useState(false);

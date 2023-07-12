@@ -1,12 +1,14 @@
-import { getAllDepartments } from "@/app/actions/getAllDepartments";
-import { getAllDesignation } from "@/app/actions/getAllDesignation";
-import { getPerson } from "@/app/actions/getPerson";
 import EditPeople from "@/app/components/Edit/EditPeople";
+import client from "@/app/libs/prismadb";
 
 const EditPeoplePage = async ({ searchParams }: any) => {
-  const people = await getPerson(searchParams.id);
-  const departments = await getAllDepartments();
-  const designations = await getAllDesignation();
+  const people: any = await client.people.findUnique({
+    where: {
+      id: searchParams.id,
+    },
+  });
+  const departments: any = await client.department.findMany({});
+  const designations: any = await client.designation.findMany({});
 
   return (
     <>
